@@ -4,12 +4,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:orientation="vertical">
 
+    <!-- 연락처 추가 버튼 -->
     <Button
         android:id="@+id/addContactButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Add Contact" />
 
+    <!-- 연락처 목록 -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"

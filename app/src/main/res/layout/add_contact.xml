@@ -9,17 +9,17 @@
         android:id="@+id/editName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name" />
+        android:hint="Name/Nickname" />
 
     <EditText
         android:id="@+id/editPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone Number" />
+        android:hint="Phone Number (010-xxxx-xxxx)" />
 
     <EditText
         android:id="@+id/editInsta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Instagram" />
+        android:hint="Instagram (@으로 시작)" />
 </LinearLayout>

@@ -1,6 +1,7 @@
 package com.example.bookapp
 
 import android.app.AlertDialog
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.widget.Button
@@ -15,8 +16,7 @@ import com.example.bookapp.SampleData
 
 class MainActivity : AppCompatActivity() {
     private lateinit var contactAdapter: ContactAdapter
-    private val contactList = SampleData.contactList.toMutableList()  // contactList를 여기서 관리
-
+    private val contactList = mutableListOf<Contact>() // contactList를 여기서 관리
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -25,7 +25,15 @@ class MainActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         val addContactButton: Button = findViewById(R.id.addContactButton)
 
-        contactAdapter = ContactAdapter(contactList)
+        // 어댑터 초기화 및 클릭 이벤트 처리
+        contactAdapter = ContactAdapter(contactList) { contact ->
+            val intent = Intent(this, ContactDetailActivity::class.java).apply {
+                putExtra("CONTACT_NAME", contact.name)
+                putExtra("CONTACT_PHONE", contact.phone)
+                putExtra("CONTACT_INSTAGRAM", contact.insta)
+            }
+            startActivity(intent)
+        }
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = contactAdapter
 
@@ -50,7 +58,7 @@ class MainActivity : AppCompatActivity() {
                 if (name.isNotEmpty() && phone.isNotEmpty()) {
                     val newContact = Contact(name, insta, phone)
                     contactList.add(newContact)
-                    contactAdapter.notifyItemInserted(SampleData.contactList.size - 1)
+                    contactAdapter.notifyItemInserted(contactList.size - 1)
                 }
             }
             .setNegativeButton("Cancel", null)
