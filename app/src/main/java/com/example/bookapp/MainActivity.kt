@@ -15,6 +15,8 @@ import com.example.bookapp.SampleData
 
 class MainActivity : AppCompatActivity() {
     private lateinit var contactAdapter: ContactAdapter
+    private val contactList = SampleData.contactList.toMutableList()  // contactList를 여기서 관리
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,7 +25,7 @@ class MainActivity : AppCompatActivity() {
         val recyclerView: RecyclerView = findViewById(R.id.recyclerView)
         val addContactButton: Button = findViewById(R.id.addContactButton)
 
-        contactAdapter = ContactAdapter(SampleData.contactList.toMutableList())
+        contactAdapter = ContactAdapter(contactList)
         recyclerView.layoutManager = LinearLayoutManager(this)
         recyclerView.adapter = contactAdapter
 
@@ -46,7 +48,8 @@ class MainActivity : AppCompatActivity() {
                 val phone = phoneEditText.text.toString()
                 val insta = instaEditText.text.toString()
                 if (name.isNotEmpty() && phone.isNotEmpty()) {
-                    SampleData.contactList.add(Contact(name, insta, phone))
+                    val newContact = Contact(name, insta, phone)
+                    contactList.add(newContact)
                     contactAdapter.notifyItemInserted(SampleData.contactList.size - 1)
                 }
             }
