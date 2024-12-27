@@ -33,6 +33,10 @@ class MainActivity : AppCompatActivity() {
                 else -> false
             }
         }
+        // 기본 화면 (연락처 목록)
+        if (savedInstanceState == null) {
+            loadFragment(ContactListFragment()) // 기본으로 첫 번째 프래그먼트 로드
+        }
     }
 
     private fun loadFragment(fragment: Fragment): Boolean {
