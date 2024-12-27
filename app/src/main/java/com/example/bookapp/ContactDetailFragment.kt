@@ -55,12 +55,23 @@ class ContactDetailFragment : Fragment() { // Activity에서 Fragment로 변경�
 
         // 팝업 레이아웃에 이미지 설정
         val defaultImageView: ImageView = dialogView.findViewById(R.id.imageDefault)
+        val image1View: ImageView = dialogView.findViewById(R.id.image1)
         val image2View: ImageView = dialogView.findViewById(R.id.image2)
         val image3View: ImageView = dialogView.findViewById(R.id.image3)
+        val image4View: ImageView = dialogView.findViewById(R.id.image4)
+        val image5View: ImageView = dialogView.findViewById(R.id.image5)
+        val image6View: ImageView = dialogView.findViewById(R.id.image6)
+
+
+
 
         // 클릭 리스너 설정
         defaultImageView.setOnClickListener {
             profileImageView.setImageResource(R.drawable.default_profile)
+            builder.create().dismiss()
+        }
+        image1View.setOnClickListener {
+            profileImageView.setImageResource(R.drawable.image1)
             builder.create().dismiss()
         }
         image2View.setOnClickListener {
@@ -69,6 +80,18 @@ class ContactDetailFragment : Fragment() { // Activity에서 Fragment로 변경�
         }
         image3View.setOnClickListener {
             profileImageView.setImageResource(R.drawable.image3)
+            builder.create().dismiss()
+        }
+        image4View.setOnClickListener {
+            profileImageView.setImageResource(R.drawable.image4)
+            builder.create().dismiss()
+        }
+        image5View.setOnClickListener {
+            profileImageView.setImageResource(R.drawable.image5)
+            builder.create().dismiss()
+        }
+        image6View.setOnClickListener {
+            profileImageView.setImageResource(R.drawable.image6)
             builder.create().dismiss()
         }
 
