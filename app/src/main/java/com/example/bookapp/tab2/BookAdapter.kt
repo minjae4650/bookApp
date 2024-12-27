@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.bookapp.R
 
 class BookAdapter(
-    private val books: List<Book>,
+    private val books: MutableList<Book>, // MutableList로 변경
     private val onItemClick: (Book) -> Unit
 ) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
@@ -23,7 +23,11 @@ class BookAdapter(
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = books[position]
-        holder.bookImage.setImageResource(book.imageResId)
+        if (book.imageUri != null) {
+            holder.bookImage.setImageURI(book.imageUri)
+        } else {
+            holder.bookImage.setImageResource(book.imageResId)
+        }
 
         holder.itemView.setOnClickListener {
             onItemClick(book)
@@ -31,4 +35,12 @@ class BookAdapter(
     }
 
     override fun getItemCount(): Int = books.size
+
+    fun getBooks(): MutableList<Book> = books
+
+    // 데이터 업데이트 메서드 추가
+    fun updateBook(position: Int, updatedBook: Book) {
+        books[position] = updatedBook
+        notifyItemChanged(position)
+    }
 }
