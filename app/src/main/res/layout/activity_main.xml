@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:backgroundTint="@color/pastel_blue_dark"
         android:textColor="@android:color/white"
-        android:text="연락처 추가하기" />
+        android:text="Add Contact" />
 
     <!-- 연락처 목록 -->
     <androidx.recyclerview.widget.RecyclerView

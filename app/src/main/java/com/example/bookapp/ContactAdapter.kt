@@ -12,7 +12,7 @@ class ContactAdapter(private val contactList: MutableList<Contact>, private val 
     // ViewHolder 클래스 정의
     class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val nameTextView: TextView = itemView.findViewById(R.id.contactName)
-        val phoneTextView: TextView = itemView.findViewById(R.id.contactPhone)
+        // val phoneTextView: TextView = itemView.findViewById(R.id.contactPhone)
     }
 
     // ViewHolder 생성
@@ -25,7 +25,7 @@ class ContactAdapter(private val contactList: MutableList<Contact>, private val 
     override fun onBindViewHolder(holder: ContactViewHolder, position: Int) {
         val contact = contactList[position]
         holder.nameTextView.text = contact.name
-        holder.phoneTextView.text = contact.phone
+        // holder.phoneTextView.text = contact.phone
 
         // 클릭 이벤트 추가 - 상세 페이지 이동을 위해 클릭 시 onItemClick 호출
         holder.itemView.setOnClickListener {
