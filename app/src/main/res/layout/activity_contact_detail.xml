@@ -27,7 +27,7 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/white"
         android:textColor="@color/dark_gray"
-        android:text="Choose Photo" />
+        android:text="Choose Mimoji" />
 
     <!-- 이름 수정 -->
     <EditText
