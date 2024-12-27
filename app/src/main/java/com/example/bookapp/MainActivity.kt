@@ -105,9 +105,9 @@ class MainActivity : AppCompatActivity() {
                 bookAuthorEditText.visibility = View.VISIBLE
                 bookReviewEditText.visibility = View.VISIBLE
 
-                bookTitleEditText.setText(book?.title)
-                bookAuthorEditText.setText(book?.author)
-                bookReviewEditText.setText(book?.review)
+                bookTitleEditText.setText(selectedBook?.title)
+                bookAuthorEditText.setText(selectedBook?.author)
+                bookReviewEditText.setText(selectedBook?.review)
 
                 editButton.text = "저장"
             } else {
@@ -117,6 +117,7 @@ class MainActivity : AppCompatActivity() {
                     it.author = bookAuthorEditText.text.toString()
                     it.review = bookReviewEditText.text.toString()
                     it.imageUri = book?.imageUri // Save updated image URI
+
 
                     // Update the popup view with new data
                     bookTitleTextView.text = "제목: ${it.title}"
