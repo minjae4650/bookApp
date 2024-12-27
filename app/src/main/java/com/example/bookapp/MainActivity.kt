@@ -22,6 +22,8 @@ class MainActivity : AppCompatActivity() {
     private val REQUEST_IMAGE_PICK = 100
     private var selectedBook: Book? = null
     private lateinit var bookAdapter: BookAdapter
+    private var popupImageView: ImageView? = null // 팝업 이미지뷰 참조
+    private var tempBook: Book? = null // 임시 데이터 객체
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,8 +40,13 @@ class MainActivity : AppCompatActivity() {
         val recyclerView = findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         bookAdapter = BookAdapter(books) { book ->
+            if (book.title == "추가하기") {
+                // "추가하기" 아이템은 수정할 수 없도록 제한
+                return@BookAdapter
+            }
             selectedBook = book
-            showEditPopup(book)
+            tempBook = book.copy() // 원본 데이터 복사하여 임시 데이터 생성
+            showEditPopup(tempBook)
         }
         recyclerView.adapter = bookAdapter
     }
@@ -58,7 +65,7 @@ class MainActivity : AppCompatActivity() {
         }
 
         // Initialize popup elements
-        val bookImage = dialog.findViewById<ImageView>(R.id.bookImage)
+        popupImageView = dialog.findViewById(R.id.bookImage)
         val editIcon = dialog.findViewById<ImageView>(R.id.editIcon)
         val bookTitleTextView = dialog.findViewById<TextView>(R.id.bookTitleTextView)
         val bookTitleEditText = dialog.findViewById<EditText>(R.id.bookTitleEditText)
@@ -72,9 +79,9 @@ class MainActivity : AppCompatActivity() {
         // Initialize data
         if (book != null) {
             if (book.imageUri != null) {
-                bookImage.setImageURI(book.imageUri)
+                popupImageView?.setImageURI(book.imageUri)
             } else {
-                bookImage.setImageResource(book.imageResId)
+                popupImageView?.setImageResource(book.imageResId)
             }
             bookTitleTextView.text = "제목: ${book.title}"
             bookAuthorTextView.text = "저자: ${book.author}"
@@ -84,8 +91,9 @@ class MainActivity : AppCompatActivity() {
         editIcon.visibility = View.GONE
 
         // Enable editing
-        editButton.setOnClickListener {editButton.setOnClickListener {
+        editButton.setOnClickListener {
             val isEditing = bookTitleTextView.visibility == View.VISIBLE
+            editIcon.visibility = View.VISIBLE
 
             if (isEditing) {
                 // Switch to edit mode
@@ -101,18 +109,26 @@ class MainActivity : AppCompatActivity() {
                 bookAuthorEditText.setText(book?.author)
                 bookReviewEditText.setText(book?.review)
 
-                editIcon.visibility = View.VISIBLE // Show edit icon in edit mode
-
                 editButton.text = "저장"
             } else {
-                // Save changes
-                book?.let {
+                // Save changes to the original book
+                selectedBook?.let {
                     it.title = bookTitleEditText.text.toString()
                     it.author = bookAuthorEditText.text.toString()
                     it.review = bookReviewEditText.text.toString()
-                    bookAdapter.notifyDataSetChanged()
+                    it.imageUri = book?.imageUri // Save updated image URI
+
+                    // Update the popup view with new data
+                    bookTitleTextView.text = "제목: ${it.title}"
+                    bookAuthorTextView.text = "저자: ${it.author}"
+                    bookReviewTextView.text = it.review
+
+                    // Update RecyclerView
+                    val position = bookAdapter.getBooks().indexOf(it)
+                    bookAdapter.updateBook(position, it)
                 }
 
+                // Switch back to view mode without closing the popup
                 bookTitleTextView.visibility = View.VISIBLE
                 bookAuthorTextView.visibility = View.VISIBLE
                 bookReviewTextView.visibility = View.VISIBLE
@@ -121,50 +137,7 @@ class MainActivity : AppCompatActivity() {
                 bookAuthorEditText.visibility = View.GONE
                 bookReviewEditText.visibility = View.GONE
 
-                editIcon.visibility = View.GONE // Hide edit icon when saved
-
-                editButton.text = "수정"
-            }
-        }
-
-            val isEditing = bookTitleTextView.visibility == View.VISIBLE
-
-            if (isEditing) {
-                // Switch to edit mode
-                bookTitleTextView.visibility = View.GONE
-                bookAuthorTextView.visibility = View.GONE
-                bookReviewTextView.visibility = View.GONE
-
-                bookTitleEditText.visibility = View.VISIBLE
-                bookAuthorEditText.visibility = View.VISIBLE
-                bookReviewEditText.visibility = View.VISIBLE
-
-                bookTitleEditText.setText(book?.title)
-                bookAuthorEditText.setText(book?.author)
-                bookReviewEditText.setText(book?.review)
-
-                editIcon.visibility = View.VISIBLE // Show edit icon in edit mode
-
-                editButton.text = "저장"
-            } else {
-                // Save changes
-                book?.let {
-                    it.title = bookTitleEditText.text.toString()
-                    it.author = bookAuthorEditText.text.toString()
-                    it.review = bookReviewEditText.text.toString()
-                    bookAdapter.notifyDataSetChanged()
-                }
-
-                bookTitleTextView.visibility = View.VISIBLE
-                bookAuthorTextView.visibility = View.VISIBLE
-                bookReviewTextView.visibility = View.VISIBLE
-
-                bookTitleEditText.visibility = View.GONE
-                bookAuthorEditText.visibility = View.GONE
-                bookReviewEditText.visibility = View.GONE
-
-                editIcon.visibility = View.GONE // Hide edit icon when saved
-
+                editIcon.visibility = View.GONE
                 editButton.text = "수정"
             }
         }
@@ -190,12 +163,11 @@ class MainActivity : AppCompatActivity() {
                 startActivityForResult(intent, REQUEST_IMAGE_PICK)
             }
         }
-        bookImage.setOnClickListener(imageClickListener)
+        popupImageView?.setOnClickListener(imageClickListener)
         editIcon.setOnClickListener(imageClickListener)
 
-        // Close popup
+        // Close popup without saving
         closeButton.setOnClickListener {
-            editIcon.visibility = View.GONE
             dialog.dismiss()
         }
 
@@ -207,10 +179,8 @@ class MainActivity : AppCompatActivity() {
         if (requestCode == REQUEST_IMAGE_PICK && resultCode == Activity.RESULT_OK) {
             val selectedImageUri: Uri? = data?.data
             if (selectedImageUri != null) {
-                selectedBook?.let {
-                    it.imageUri = selectedImageUri
-                    showEditPopup(it) // Reload the popup to reflect the updated image
-                }
+                tempBook?.imageUri = selectedImageUri
+                popupImageView?.setImageURI(selectedImageUri)
             }
         }
     }
