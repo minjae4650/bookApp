@@ -23,6 +23,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
+        <!-- ContactDetailActivity 추가 -->
+        <activity
+            android:name="com.example.bookapp.ContactDetailActivity"
+            android:exported="true"
+            android:label="Contact Details"
+            android:theme="@style/Theme.BookApp" />
     </application>
 
 </manifest>
