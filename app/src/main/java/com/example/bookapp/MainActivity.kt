@@ -41,7 +41,7 @@ class MainActivity : AppCompatActivity() {
         recyclerView.layoutManager = GridLayoutManager(this, 2)
         bookAdapter = BookAdapter(books) { book ->
             if (book.title == "추가하기") {
-                // "추가하기" 아이템은 수정할 수 없도록 제한
+                showAddPopup()
                 return@BookAdapter
             }
             selectedBook = book
@@ -49,6 +49,61 @@ class MainActivity : AppCompatActivity() {
             showEditPopup(tempBook)
         }
         recyclerView.adapter = bookAdapter
+    }
+
+    private fun showAddPopup() {
+        val dialog = Dialog(this)
+        dialog.setContentView(R.layout.popup_layout)
+
+        val window = dialog.window
+        if (window != null) {
+            window.setLayout(
+                WindowManager.LayoutParams.MATCH_PARENT,
+                WindowManager.LayoutParams.MATCH_PARENT
+            )
+        }
+
+        popupImageView = dialog.findViewById(R.id.bookImage) // 멤버 변수로 초기화
+        val bookTitleEditText = dialog.findViewById<EditText>(R.id.bookTitleEditText)
+        val bookAuthorEditText = dialog.findViewById<EditText>(R.id.bookAuthorEditText)
+        val bookReviewEditText = dialog.findViewById<EditText>(R.id.bookReviewEditText)
+        val addButton = dialog.findViewById<Button>(R.id.editButton)
+        val closeButton = dialog.findViewById<Button>(R.id.closeButton)
+
+        tempBook = Book(title = "", imageResId = R.drawable.plus_draw) // 임시 객체 초기화
+
+        // 기본 상태 설정
+        popupImageView?.setImageResource(R.drawable.image_placeholder)
+        bookTitleEditText.visibility = View.VISIBLE
+        bookAuthorEditText.visibility = View.VISIBLE
+        bookReviewEditText.visibility = View.VISIBLE
+        addButton.text = "추가"
+
+        // 이미지 클릭 이벤트
+        popupImageView?.setOnClickListener {
+            val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+            startActivityForResult(intent, REQUEST_IMAGE_PICK)
+        }
+
+        // 추가 버튼 클릭 이벤트
+        addButton.setOnClickListener {
+            val newBook = tempBook?.copy(
+                title = bookTitleEditText.text.toString(),
+                author = bookAuthorEditText.text.toString(),
+                review = bookReviewEditText.text.toString()
+            ) ?: return@setOnClickListener
+
+            bookAdapter.getBooks().add(newBook)
+            bookAdapter.notifyItemInserted(bookAdapter.getBooks().size - 1)
+            dialog.dismiss()
+        }
+
+        // 닫기 버튼 클릭 이벤트
+        closeButton.setOnClickListener {
+            dialog.dismiss()
+        }
+
+        dialog.show()
     }
 
     private fun showEditPopup(book: Book?) {
