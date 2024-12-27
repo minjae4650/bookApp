@@ -2,16 +2,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical">
+    android:orientation="vertical"
+    android:gravity="end"
+    android:padding="10dp">
 
     <!-- 연락처 추가 버튼 -->
     <Button
         android:id="@+id/addContactButton"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
         android:backgroundTint="@color/pastel_blue_dark"
         android:textColor="@android:color/white"
-        android:text="Add Contact" />
+        android:text="Add Contact"
+        android:padding="8dp"
+        android:layout_margin="8dp"/>
 
     <!-- 연락처 목록 -->
     <androidx.recyclerview.widget.RecyclerView
