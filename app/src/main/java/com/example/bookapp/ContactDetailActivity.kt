@@ -14,9 +14,9 @@ class ContactDetailActivity : AppCompatActivity() {
 
         // View 초기화
         val profileImageView: ImageView = findViewById(R.id.profileImageView)
-        val nameTextView: TextView = findViewById(R.id.detailName)
-        val phoneTextView: TextView = findViewById(R.id.detailPhone)
-        val instaTextView: TextView = findViewById(R.id.detailInsta)
+        val nameTextView: TextView = findViewById(R.id.editTextName)
+        val phoneTextView: TextView = findViewById(R.id.editTextPhone)
+        val instaTextView: TextView = findViewById(R.id.editTextInsta)
 
         // Intent로부터 데이터 받기
         val name = intent.getStringExtra("CONTACT_NAME") ?: ""
