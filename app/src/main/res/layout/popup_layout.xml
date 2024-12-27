@@ -12,23 +12,42 @@
         android:layout_gravity="center"
         android:layout_marginBottom="16dp" />
 
-    <!-- 텍스트 정보 -->
+    <!-- 제목 -->
     <TextView
-        android:id="@+id/bookTitle"
+        android:id="@+id/bookTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="제목"
         android:textSize="18sp"
         android:textStyle="bold"
-        android:layout_marginBottom="8dp" />
+        android:layout_marginBottom="8dp"
+        android:visibility="visible" />
 
+    <EditText
+        android:id="@+id/bookTitleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="제목 수정"
+        android:visibility="gone"
+        android:background="@android:drawable/editbox_background" />
+
+    <!-- 저자 -->
     <TextView
-        android:id="@+id/bookAuthor"
+        android:id="@+id/bookAuthorTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="저자"
         android:textSize="16sp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="8dp"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/bookAuthorEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="저자 수정"
+        android:visibility="gone"
+        android:background="@android:drawable/editbox_background" />
 
     <!-- 감상평 -->
     <EditText
@@ -38,7 +57,9 @@
         android:hint="나만의 감상평"
         android:background="@android:drawable/editbox_background"
         android:padding="8dp"
-        android:layout_marginBottom="16dp" />
+        android:layout_marginBottom="16dp"
+        android:inputType="textMultiLine"
+        android:gravity="top" />
 
     <!-- 버튼들 -->
     <LinearLayout
