@@ -9,7 +9,9 @@
         android:id="@+id/addContactButton"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Add Contact" />
+        android:backgroundTint="@color/pastel_blue_dark"
+        android:textColor="@android:color/white"
+        android:text="연락처 추가하기" />
 
     <!-- 연락처 목록 -->
     <androidx.recyclerview.widget.RecyclerView

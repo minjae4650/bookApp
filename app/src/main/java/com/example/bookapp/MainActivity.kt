@@ -16,7 +16,8 @@ import com.example.bookapp.SampleData
 
 class MainActivity : AppCompatActivity() {
     private lateinit var contactAdapter: ContactAdapter
-    private val contactList = mutableListOf<Contact>() // contactList를 여기서 관리
+    //private val contactList = mutableListOf<Contact>() // contactList를 여기서 관리
+    private val contactList = SampleData.contactList
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -55,7 +56,7 @@ class MainActivity : AppCompatActivity() {
                 val name = nameEditText.text.toString()
                 val phone = phoneEditText.text.toString()
                 val insta = instaEditText.text.toString()
-                if (name.isNotEmpty() && phone.isNotEmpty()) {
+                if (name.isNotEmpty() && phone.isNotEmpty() &&insta.isNotEmpty()) {
                     val newContact = Contact(name, insta, phone)
                     contactList.add(newContact)
                     contactAdapter.notifyItemInserted(contactList.size - 1)
