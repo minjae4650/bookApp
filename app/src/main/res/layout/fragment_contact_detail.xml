@@ -6,7 +6,7 @@
     android:orientation="vertical"
     android:padding="16dp"
     android:gravity="center"
-    tools:context=".ContactDetailActivity">
+    tools:context=".ContactDetailFragment">
 
     <!-- 프로필 이미지 -->
     <ImageView

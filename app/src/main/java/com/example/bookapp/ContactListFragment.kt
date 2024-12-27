@@ -1,7 +1,6 @@
 package com.example.bookapp
 
 import android.app.AlertDialog
-import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -28,13 +27,23 @@ class ContactListFragment : Fragment() {
 
         // 어댑터 초기화 및 클릭 이벤트 처리
         contactAdapter = ContactAdapter(contactList) { contact ->
-            val intent = Intent(activity, ContactDetailActivity::class.java).apply {
-                putExtra("CONTACT_NAME", contact.name)
-                putExtra("CONTACT_PHONE", contact.phone)
-                putExtra("CONTACT_INSTAGRAM", contact.insta)
+            // 수정된 부분: FragmentTransaction을 사용하여 ContactDetailFragment 표시
+            val contactDetailFragment = ContactDetailFragment().apply {
+                val bundle = Bundle().apply {
+                    putString("CONTACT_NAME", contact.name)
+                    putString("CONTACT_PHONE", contact.phone)
+                    putString("CONTACT_INSTAGRAM", contact.insta)
+                }
+                arguments = bundle // 전달할 데이터를 Fragment의 arguments에 넣음
             }
-            startActivity(intent)
+
+            // FragmentTransaction을 사용하여 Fragment 교체
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragment_container, contactDetailFragment) // fragmentContainer는 레이아웃 ID
+                .addToBackStack(null) // 뒤로가기 지원
+                .commit()
         }
+
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = contactAdapter
 
