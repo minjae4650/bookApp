@@ -4,18 +4,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookapp.R
 
 class BookAdapter(
-    private val books: List<Book>
+    private val books: List<Book>,
+    private val onItemClick: (Book) -> Unit
 ) : RecyclerView.Adapter<BookAdapter.BookViewHolder>() {
 
     class BookViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val imageView: ImageView = itemView.findViewById(R.id.bookImage)
-        val titleTextView: TextView = itemView.findViewById(R.id.bookTitle)
-        val authorTextView: TextView = itemView.findViewById(R.id.bookAuthor)
+        val bookImage: ImageView = itemView.findViewById(R.id.bookImage)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): BookViewHolder {
@@ -25,9 +23,11 @@ class BookAdapter(
 
     override fun onBindViewHolder(holder: BookViewHolder, position: Int) {
         val book = books[position]
-        holder.titleTextView.text = book.title
-        holder.authorTextView.text = book.author
-        holder.imageView.setImageResource(book.imagePath)
+        holder.bookImage.setImageResource(book.imageResId)
+
+        holder.itemView.setOnClickListener {
+            onItemClick(book)
+        }
     }
 
     override fun getItemCount(): Int = books.size
