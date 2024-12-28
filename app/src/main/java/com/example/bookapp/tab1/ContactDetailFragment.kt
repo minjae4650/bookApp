@@ -4,6 +4,8 @@ import ContactPreferences
 import android.content.Intent
 import android.net.Uri
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -52,15 +54,40 @@ class ContactDetailFragment : Fragment() {
             selectedProfileImageResId = contact?.profileImage ?: R.drawable.default_profile // 초기 프로필 이미지 설정
         }
 
+        // 실시간 검증을 위한 TextWatcher 추가
+        nameEditText.addTextChangedListener(createTextWatcher { text ->
+            if (text.length > 15 || !text.matches("^[a-zA-Z]*$".toRegex())) {
+                nameEditText.error = "Name must be in English and 15 characters or less"
+            } else {
+                nameEditText.error = null
+            }
+        })
+
+        phoneEditText.addTextChangedListener(createTextWatcher { text ->
+            if (!text.matches("^010-\\d{4}-\\d{4}$".toRegex())) {
+                phoneEditText.error = "Phone number must be in the format 010-xxxx-xxxx"
+            } else {
+                phoneEditText.error = null
+            }
+        })
+
+        instaEditText.addTextChangedListener(createTextWatcher { text ->
+            val errorMessage = validateInstagramId(text)
+            instaEditText.error = errorMessage
+        })
+
         // 저장 버튼 클릭 시 데이터 저장
         saveButton.setOnClickListener {
-            val updatedContact = Contact(
-                name = nameEditText.text.toString(),
-                phone = phoneEditText.text.toString(),
-                insta = instaEditText.text.toString(),
-                profileImage = selectedProfileImageResId // 선택된 이미지 리소스 ID 사용
-            )
-            saveUpdatedContact(updatedContact)
+            // 유효성 검사 후 저장
+            if (validateAllFields(nameEditText, phoneEditText, instaEditText)) {
+                val updatedContact = Contact(
+                    name = nameEditText.text.toString(),
+                    phone = phoneEditText.text.toString(),
+                    insta = instaEditText.text.toString(),
+                    profileImage = selectedProfileImageResId // 선택된 이미지 리소스 ID 사용
+                )
+                saveUpdatedContact(updatedContact)
+            }
         }
 
         // 사진 선택 버튼 클릭 시 팝업 표시
@@ -90,6 +117,56 @@ class ContactDetailFragment : Fragment() {
         return view
     }
 
+    // TextWatcher를 생성하는 함수
+    private fun createTextWatcher(onTextChanged: (String) -> Unit): TextWatcher {
+        return object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                onTextChanged(s.toString())
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        }
+    }
+
+    // Instagram ID 유효성 검사 함수
+    private fun validateInstagramId(insta: String): String? {
+        if (insta.length > 30) return "Instagram ID must be at most 30 characters long"
+        if (insta.contains(" ")) return "Instagram ID cannot contain spaces"
+        if (!insta.matches("^[a-z0-9_\\.]+$".toRegex())) return "Instagram ID can only contain letters, numbers, underscores, and periods"
+        if (insta.startsWith(".") || insta.endsWith(".") || insta.contains("..")) return "Instagram ID cannot start or end with a period, and cannot contain consecutive periods"
+        return null
+    }
+
+    // 모든 필드에 대한 최종 검증 함수
+    private fun validateAllFields(
+        nameEditText: EditText,
+        phoneEditText: EditText,
+        instaEditText: EditText
+    ): Boolean {
+        var isValid = true
+
+        val name = nameEditText.text.toString()
+        if (name.length > 15 || !name.matches("^[a-zA-Z]*$".toRegex())) {
+            nameEditText.error = "Name must be in English and 15 characters or less"
+            isValid = false
+        }
+
+        val phone = phoneEditText.text.toString()
+        if (!phone.matches("^010-\\d{4}-\\d{4}$".toRegex())) {
+            phoneEditText.error = "Phone number must be in the format 010-xxxx-xxxx"
+            isValid = false
+        }
+
+        val insta = instaEditText.text.toString()
+        val instaError = validateInstagramId(insta)
+        if (instaError != null) {
+            instaEditText.error = instaError
+            isValid = false
+        }
+
+        return isValid
+    }
+
     private fun saveUpdatedContact(updatedContact: Contact) {
         val contactList = contactPreferences.getContacts().toMutableList()
 
@@ -115,7 +192,6 @@ class ContactDetailFragment : Fragment() {
         val inflater = LayoutInflater.from(requireContext())
         val dialogView = inflater.inflate(R.layout.pick_mimoji_popup, null)
 
-        // 팝업 레이아웃에 이미지 설정
         val defaultImageView: ImageView = dialogView.findViewById(R.id.imageDefault)
         val image1View: ImageView = dialogView.findViewById(R.id.image1)
         val image2View: ImageView = dialogView.findViewById(R.id.image2)
@@ -124,7 +200,6 @@ class ContactDetailFragment : Fragment() {
         val image5View: ImageView = dialogView.findViewById(R.id.image5)
         val image6View: ImageView = dialogView.findViewById(R.id.image6)
 
-        // 클릭 리스너 설정
         val imageClickListener = View.OnClickListener { view ->
             selectedProfileImageResId = when (view.id) {
                 R.id.image1 -> R.drawable.image1
@@ -135,8 +210,6 @@ class ContactDetailFragment : Fragment() {
                 R.id.image6 -> R.drawable.image6
                 else -> R.drawable.default_profile
             }
-
-            // 선택된 이미지를 ImageView에 설정
             profileImageView.setImageResource(selectedProfileImageResId)
             builder.create().dismiss() // 다이얼로그 닫기
         }
