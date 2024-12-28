@@ -81,7 +81,7 @@ class ContactListFragment : Fragment() {
         val instaEditText = dialogView.findViewById<EditText>(R.id.editInsta)
 
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Add com.example.bookapp.tab1.Contact")
+            .setTitle("Add Contact")
             .setView(dialogView)
             .setPositiveButton("Add") { _, _ ->
                 val name = nameEditText.text.toString()
@@ -120,11 +120,8 @@ class ContactListFragment : Fragment() {
         })
 
         instaEditText.addTextChangedListener(createTextWatcher { text ->
-            if (!text.startsWith("@")) {
-                instaEditText.error = "Instagram must start with @"
-            } else {
-                instaEditText.error = null
-            }
+            val errorMessage = validateInstagramId(text)
+            instaEditText.error = errorMessage
         })
     }
 
@@ -160,19 +157,31 @@ class ContactListFragment : Fragment() {
         }
 
         val insta = instaEditText.text.toString()
-        if (!insta.startsWith("@")) {
-            instaEditText.error = "Instagram must start with @"
+        val instaError = validateInstagramId(insta)
+        if (instaError != null) {
+            instaEditText.error = instaError
             isValid = false
         }
 
         return isValid
     }
 
-
+    // Instagram ID 유효성 검사 함수
+    private fun validateInstagramId(insta: String): String? {
+        // 인스타그램 아이디가 30자 이하인지 확인
+        if (insta.length > 30) return "Instagram ID must be at most 30 characters long"
+        // 공백이 포함되어 있는지 확인
+        if (insta.contains(" ")) return "Instagram ID cannot contain spaces"
+        // 유효한 문자만 포함되었는지 확인
+        if (!insta.matches("^[a-z0-9_\\.]+$".toRegex())) return "Instagram ID can only contain letters, numbers, underscores, and periods"
+        // 마침표가 연속으로 사용되거나 시작/끝에 오는지 확인
+        if (insta.startsWith(".") || insta.endsWith(".") || insta.contains("..")) return "Instagram ID cannot start or end with a period, and cannot contain consecutive periods"
+        return null
+    }
 
     private fun showDeleteContactDialog(contact: Contact) {
         AlertDialog.Builder(activity)
-            .setTitle("Delete com.example.bookapp.tab1.Contact")
+            .setTitle("Delete Contact")
             .setMessage("Are you sure you want to delete this contact?")
             .setPositiveButton("Delete") { _, _ ->
                 val position = contactList.indexOf(contact)
