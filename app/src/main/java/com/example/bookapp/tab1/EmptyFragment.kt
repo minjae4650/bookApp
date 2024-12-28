@@ -1,4 +1,4 @@
-package com.example.bookapp
+package com.example.bookapp.tab1
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import androidx.fragment.app.Fragment
+import com.example.bookapp.R
 
 class EmptyFragment(private val content: String) : Fragment() {
 

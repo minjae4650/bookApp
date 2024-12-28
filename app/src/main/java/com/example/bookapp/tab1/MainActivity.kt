@@ -1,8 +1,9 @@
-package com.example.bookapp
+package com.example.bookapp.tab1
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.bookapp.R
 import com.example.bookapp.tab2.BooksFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 

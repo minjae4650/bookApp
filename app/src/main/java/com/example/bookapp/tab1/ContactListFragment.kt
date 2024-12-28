@@ -1,6 +1,5 @@
-package com.example.bookapp
+package com.example.bookapp.tab1
 
-import Contact
 import ContactPreferences
 import android.app.AlertDialog
 import android.os.Bundle
@@ -14,6 +13,7 @@ import android.widget.EditText
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bookapp.R
 
 class ContactListFragment : Fragment() {
 
@@ -81,7 +81,7 @@ class ContactListFragment : Fragment() {
         val instaEditText = dialogView.findViewById<EditText>(R.id.editInsta)
 
         val dialog = AlertDialog.Builder(requireContext())
-            .setTitle("Add Contact")
+            .setTitle("Add com.example.bookapp.tab1.Contact")
             .setView(dialogView)
             .setPositiveButton("Add") { _, _ ->
                 val name = nameEditText.text.toString()
@@ -172,7 +172,7 @@ class ContactListFragment : Fragment() {
 
     private fun showDeleteContactDialog(contact: Contact) {
         AlertDialog.Builder(activity)
-            .setTitle("Delete Contact")
+            .setTitle("Delete com.example.bookapp.tab1.Contact")
             .setMessage("Are you sure you want to delete this contact?")
             .setPositiveButton("Delete") { _, _ ->
                 val position = contactList.indexOf(contact)

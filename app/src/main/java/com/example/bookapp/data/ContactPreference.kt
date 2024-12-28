@@ -2,13 +2,12 @@ import android.content.Context
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import com.example.bookapp.R
-//import com.example.bookapp.Contact
+//import com.example.bookapp.com.example.bookapp.tab1.Contact
 import com.google.gson.Gson
 import com.google.gson.reflect.TypeToken
-import kotlinx.coroutines.CoroutineStart
 import java.io.ByteArrayOutputStream
 import android.util.Base64 // android.util.Base64 사용
-import kotlin.io.encoding.ExperimentalEncodingApi
+import com.example.bookapp.tab1.Contact
 
 class ContactPreferences(context: Context) {
     private val sharedPreferences = context.getSharedPreferences("contacts", Context.MODE_PRIVATE)
@@ -25,7 +24,7 @@ class ContactPreferences(context: Context) {
         val json = sharedPreferences.getString("contact_list", null) // JSON 형식으로 저장된 값 가져오기
         return if (json != null) {
             val type = object : TypeToken<List<Contact>>() {}.type // 제네릭 타입을 가져오기 위한 리플렉션
-            gson.fromJson(json, type) // JSON을 Contact 리스트로 변환
+            gson.fromJson(json, type) // JSON을 com.example.bookapp.tab1.Contact 리스트로 변환
         } else {
             emptyList() // 데이터가 없으면 빈 리스트 반환
         }

@@ -1,8 +1,6 @@
-package com.example.bookapp
+package com.example.bookapp.tab1
 
-import Contact
 import ContactPreferences
-import android.graphics.drawable.BitmapDrawable
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,6 +10,7 @@ import android.widget.EditText
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AlertDialog
+import com.example.bookapp.R
 
 class ContactDetailFragment : Fragment() {
 
