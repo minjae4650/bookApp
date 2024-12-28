@@ -13,6 +13,14 @@ class ContactAdapter(
     private val onItemClick: (Contact) -> Unit
 ) : RecyclerView.Adapter<ContactAdapter.ContactViewHolder>() {
 
+    // 롱 클릭 리스너를 위한 변수
+    private var onItemLongClick: ((Contact) -> Unit)? = null
+
+    // 롱 클릭 리스너 설정 메서드
+    fun setOnItemLongClickListener(listener: (Contact) -> Unit) {
+        onItemLongClick = listener
+    }
+
     // ViewHolder 클래스 정의
     class ContactViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val contactImage: ImageView = itemView.findViewById(R.id.contactImage)
@@ -31,8 +39,7 @@ class ContactAdapter(
         holder.nameTextView.text = contact.name
         holder.contactImage.setImageResource(contact.profileImage)
 
-        // 프로필 사진 설정
-        // 프로필 이미지 리소스를 contact 객체에 따라 설정
+        // 프로필 이미지 설정
         when (contact.profileImage) {
             R.drawable.default_profile -> holder.contactImage.setImageResource(R.drawable.default_profile)
             R.drawable.image1 -> holder.contactImage.setImageResource(R.drawable.image1)
@@ -44,9 +51,15 @@ class ContactAdapter(
             else -> holder.contactImage.setImageResource(R.drawable.default_profile) // 기본 이미지
         }
 
-        // 클릭 이벤트 추가 - 상세 페이지 이동을 위해 클릭 시 onItemClick 호출
+        // 클릭 이벤트 - 상세 페이지 이동
         holder.itemView.setOnClickListener {
             onItemClick(contact)
+        }
+
+        // 롱 클릭 이벤트 처리
+        holder.itemView.setOnLongClickListener {
+            onItemLongClick?.invoke(contact)
+            true // 롱 클릭이 처리되었음을 알려줌
         }
     }
 

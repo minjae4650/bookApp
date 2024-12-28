@@ -53,6 +53,11 @@ class ContactListFragment : Fragment() {
         recyclerView.layoutManager = LinearLayoutManager(activity)
         recyclerView.adapter = contactAdapter
 
+        // 롱 클릭 리스너 설정 (삭제 팝업)
+        contactAdapter.setOnItemLongClickListener { contact ->
+            showDeleteContactDialog(contact)
+        }
+
         addContactButton.setOnClickListener {
             showAddContactDialog()
         }
@@ -63,7 +68,7 @@ class ContactListFragment : Fragment() {
     override fun onResume() {
         super.onResume()
         // 필요시 목록 갱신
-        contactList = contactPreferences.getContacts().toMutableList()
+        // onResume에서 다시 데이터를 불러오지 않고, 직접 어댑터에서 업데이트가 반영되도록 처리
         contactAdapter.notifyDataSetChanged()
     }
 
@@ -88,6 +93,30 @@ class ContactListFragment : Fragment() {
                     contactList.add(newContact)
                     contactPreferences.saveContacts(contactList) // 새로운 연락처 저장
                     contactAdapter.notifyItemInserted(contactList.size - 1)
+                }
+            }
+            .setNegativeButton("Cancel", null)
+            .show()
+    }
+
+    private fun showDeleteContactDialog(contact: Contact) {
+        AlertDialog.Builder(activity)
+            .setTitle("Delete Contact")
+            .setMessage("Are you sure you want to delete this contact?")
+            .setPositiveButton("Delete") { _, _ ->
+                val position = contactList.indexOf(contact)
+                if (position != -1) {
+                    // 리스트에서 연락처 삭제
+                    contactList.removeAt(position)
+
+                    // 변경된 목록을 SharedPreferences에 저장
+                    contactPreferences.saveContacts(contactList)
+
+                    // 어댑터에 변경 사항 반영 (삭제된 항목만 갱신)
+                    contactAdapter.notifyItemRemoved(position)
+
+                    // 삭제된 항목 이후의 항목들 갱신
+                    contactAdapter.notifyItemRangeChanged(position, contactList.size - position)
                 }
             }
             .setNegativeButton("Cancel", null)
