@@ -28,8 +28,12 @@
       <td align="center">이소정</td>
     </tr>
     <tr>
-      <td align="center"><a href="https://github.com/Hwang-Jaeryeong" target="_blank">@minjae4650</a></td>
+      <td align="center"><a href="https://github.com/minjae4650" target="_blank">@minjae4650</a></td>
       <td align="center"><a href="https://github.com/doleebest" target="_blank" width="160">@doleebest</a></td>
+    </tr>
+      <tr>
+      <td align="center">갤러리 탭, 캘린더 탭</a></td>
+      <td align="center">연락처 탭, 갤러리 탭, 디자인</a></td>
     </tr>
   </table>
   <br>
@@ -78,9 +82,11 @@
 
 - 독서 모임에 참여 중인 멤버 목록을 모아볼 수 있어요.
 - ADD CONTACT 버튼을 통해 멤버를 추가할 수 있어요.
-- 연락처를 꾹 눌러 특정 멤버를 삭제할 수 있어요. 
+- 연락처 목록에서 연락처를 꾹 눌러 특정 멤버를 삭제할 수 있어요. 
 - 특정 멤버의 상세 정보 (이름, 전화번호, 프로필 사진, 인스타그램 계정)를 수정할 수 있어요.
 - 프로필 사진은 주어진 미모지 중 마음에 드는 하나를 선택하면 돼요.
+- 연락처 상세 페이지에서 delete 버튼으로 연락처를 삭제할 수 있어요.
+- 연락처 상세페이지에서 해당 멤버에게 전화를 걸 수도 있고, 인스타그램 페이지에 접속할 수도 있어요.
 
 ### Archive
 
