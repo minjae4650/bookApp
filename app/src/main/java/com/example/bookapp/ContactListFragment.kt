@@ -4,6 +4,8 @@ import Contact
 import ContactPreferences
 import android.app.AlertDialog
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -78,26 +80,95 @@ class ContactListFragment : Fragment() {
         val phoneEditText = dialogView.findViewById<EditText>(R.id.editPhone)
         val instaEditText = dialogView.findViewById<EditText>(R.id.editInsta)
 
-        AlertDialog.Builder(activity)
+        val dialog = AlertDialog.Builder(requireContext())
             .setTitle("Add Contact")
             .setView(dialogView)
             .setPositiveButton("Add") { _, _ ->
                 val name = nameEditText.text.toString()
                 val phone = phoneEditText.text.toString()
                 val insta = instaEditText.text.toString()
-                // 기본 프로필 이미지 설정
-                val defaultProfileImage = R.drawable.default_profile
 
-                if (name.isNotEmpty() && phone.isNotEmpty() && insta.isNotEmpty()) {
+                // 유효성 검사 후 연락처 추가
+                if (validateAllFields(nameEditText, phoneEditText, instaEditText)) {
+                    val defaultProfileImage = R.drawable.default_profile
                     val newContact = Contact(name, phone, insta, defaultProfileImage)
                     contactList.add(newContact)
-                    contactPreferences.saveContacts(contactList) // 새로운 연락처 저장
+                    contactPreferences.saveContacts(contactList)
                     contactAdapter.notifyItemInserted(contactList.size - 1)
                 }
             }
             .setNegativeButton("Cancel", null)
-            .show()
+            .create()
+
+        dialog.show()
+
+        // 실시간 검증을 위한 TextWatcher 추가
+        nameEditText.addTextChangedListener(createTextWatcher { text ->
+            if (text.length > 15 || !text.matches("^[a-zA-Z]*$".toRegex())) {
+                nameEditText.error = "Name must be in English and 15 characters or less"
+            } else {
+                nameEditText.error = null
+            }
+        })
+
+        phoneEditText.addTextChangedListener(createTextWatcher { text ->
+            if (!text.matches("^010-\\d{4}-\\d{4}$".toRegex())) {
+                phoneEditText.error = "Phone number must be in the format 010-xxxx-xxxx"
+            } else {
+                phoneEditText.error = null
+            }
+        })
+
+        instaEditText.addTextChangedListener(createTextWatcher { text ->
+            if (!text.startsWith("@")) {
+                instaEditText.error = "Instagram must start with @"
+            } else {
+                instaEditText.error = null
+            }
+        })
     }
+
+    // TextWatcher를 생성하는 함수
+    private fun createTextWatcher(onTextChanged: (String) -> Unit): TextWatcher {
+        return object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                onTextChanged(s.toString())
+            }
+            override fun afterTextChanged(s: Editable?) {}
+        }
+    }
+
+    // 모든 필드에 대한 최종 검증 함수
+    private fun validateAllFields(
+        nameEditText: EditText,
+        phoneEditText: EditText,
+        instaEditText: EditText
+    ): Boolean {
+        var isValid = true
+
+        val name = nameEditText.text.toString()
+        if (name.length > 15 || !name.matches("^[a-zA-Z]*$".toRegex())) {
+            nameEditText.error = "Name must be in English and 15 characters or less"
+            isValid = false
+        }
+
+        val phone = phoneEditText.text.toString()
+        if (!phone.matches("^010-\\d{4}-\\d{4}$".toRegex())) {
+            phoneEditText.error = "Phone number must be in the format 010-xxxx-xxxx"
+            isValid = false
+        }
+
+        val insta = instaEditText.text.toString()
+        if (!insta.startsWith("@")) {
+            instaEditText.error = "Instagram must start with @"
+            isValid = false
+        }
+
+        return isValid
+    }
+
+
 
     private fun showDeleteContactDialog(contact: Contact) {
         AlertDialog.Builder(activity)

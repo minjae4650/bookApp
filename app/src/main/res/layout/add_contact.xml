@@ -9,17 +9,26 @@
         android:id="@+id/editName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Name" />
+        android:hint="Name"
+        android:layout_marginBottom="30dp"
+        android:importantForAccessibility="yes"
+        android:background="?android:attr/editTextBackground"/>
 
     <EditText
         android:id="@+id/editPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Phone" />
+        android:hint="Phone"
+        android:importantForAccessibility="yes"
+        android:layout_marginBottom="30dp"
+        android:background="?android:attr/editTextBackground"/>
 
     <EditText
         android:id="@+id/editInsta"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="Instagram (start with @)" />
+        android:hint="Instagram"
+        android:importantForAccessibility="yes"
+        android:layout_marginBottom="30dp"
+        android:background="?android:attr/editTextBackground"/>
 </LinearLayout>
