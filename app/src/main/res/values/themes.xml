@@ -7,7 +7,6 @@
         <item name="colorPrimary">@color/pastel_blue_primary</item>
         <item name="colorPrimaryDark">@color/pastel_blue_dark</item>
         <item name="colorAccent">@color/pastel_blue_accent</item>
-
         <!-- 상태바 및 내비게이션바 설정 -->
         <item name="android:statusBarColor">@color/pastel_blue_primary</item>
         <item name="android:navigationBarColor">@color/pastel_blue_primary</item>

@@ -60,7 +60,7 @@ class BooksFragment : Fragment() {
         if (window != null) {
             window.setLayout(
                 WindowManager.LayoutParams.MATCH_PARENT,
-                WindowManager.LayoutParams.MATCH_PARENT
+                WindowManager.LayoutParams.WRAP_CONTENT
             )
         }
 

@@ -5,7 +5,7 @@
     android:orientation="horizontal"
     android:padding="16dp">
 
-    <!-- ImageView for Contact's Photo -->
+    <!-- ImageView for com.example.bookapp.tab1.Contact's Photo -->
     <ImageView
         android:id="@+id/contactImage"
         android:layout_width="80dp"

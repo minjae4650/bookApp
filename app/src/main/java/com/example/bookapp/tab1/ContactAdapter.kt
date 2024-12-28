@@ -1,12 +1,12 @@
-package com.example.bookapp
+package com.example.bookapp.tab1
 
-import Contact
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.example.bookapp.R
 
 class ContactAdapter(
     private val contactList: MutableList<Contact>,
