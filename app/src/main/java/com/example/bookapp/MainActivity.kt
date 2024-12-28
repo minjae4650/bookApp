@@ -3,6 +3,7 @@ package com.example.bookapp
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import com.example.bookapp.tab2.BooksFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -23,7 +24,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_tab2 -> {
-                    loadFragment(EmptyFragment("Tab 2 Content"), false) // 탭 2
+                    loadFragment(BooksFragment(), false) // 탭 2
                     true
                 }
                 R.id.nav_tab3 -> {
