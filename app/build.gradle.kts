@@ -52,6 +52,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.1")
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
+    implementation ("com.google.code.gson:gson:2.8.9") // Gson 라이브러리 추가
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
@@ -59,4 +60,5 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
 }
