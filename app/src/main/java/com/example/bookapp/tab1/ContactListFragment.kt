@@ -75,7 +75,7 @@ class ContactListFragment : Fragment() {
     }
 
     private fun showAddContactDialog() {
-        val dialogView = LayoutInflater.from(activity).inflate(R.layout.add_contact, null)
+        val dialogView = LayoutInflater.from(activity).inflate(R.layout.add_contact_popup, null)
         val nameEditText = dialogView.findViewById<EditText>(R.id.editName)
         val phoneEditText = dialogView.findViewById<EditText>(R.id.editPhone)
         val instaEditText = dialogView.findViewById<EditText>(R.id.editInsta)

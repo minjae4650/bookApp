@@ -113,7 +113,7 @@ class ContactDetailFragment : Fragment() {
     private fun showImageSelectionDialog() {
         val builder = AlertDialog.Builder(requireContext())
         val inflater = LayoutInflater.from(requireContext())
-        val dialogView = inflater.inflate(R.layout.dialog_image_selection, null)
+        val dialogView = inflater.inflate(R.layout.pick_mimoji_popup, null)
 
         // 팝업 레이아웃에 이미지 설정
         val defaultImageView: ImageView = dialogView.findViewById(R.id.imageDefault)

@@ -54,7 +54,7 @@ class BooksFragment : Fragment() {
 
     private fun showAddPopup() {
         val dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.popup_layout)
+        dialog.setContentView(R.layout.add_archive_popup)
 
         val window = dialog.window
         if (window != null) {
@@ -112,7 +112,7 @@ class BooksFragment : Fragment() {
 
     private fun showEditPopup(book: Book?) {
         val dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.popup_layout)
+        dialog.setContentView(R.layout.add_archive_popup)
 
         val window = dialog.window
         if (window != null) {
