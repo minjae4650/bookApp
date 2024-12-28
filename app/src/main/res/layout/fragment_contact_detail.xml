@@ -10,7 +10,7 @@
 
     <!-- 프로필 이미지 -->
     <ImageView
-        android:id="@+id/profileImageView"
+        android:id="@+id/profileImage"
         android:layout_width="175dp"
         android:layout_height="166dp"
         android:layout_gravity="center_horizontal"
@@ -31,40 +31,40 @@
 
     <!-- 이름 수정 -->
     <EditText
-        android:id="@+id/editTextName"
+        android:id="@+id/editName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
         android:gravity="center"
         android:textColor="@color/dark_gray"
         android:textColorHint="@color/gray"
-        android:text="이름"
+        android:text="Name"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <!-- 전화번호 수정 -->
     <EditText
-        android:id="@+id/editTextPhone"
+        android:id="@+id/editPhone"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
         android:gravity="center"
         android:textColor="@color/dark_gray"
         android:textColorHint="@color/gray"
-        android:text="전화번호"
+        android:text="Phone"
         android:textSize="18sp"
         android:textStyle="bold" />
 
     <!-- 인스타그램 수정 -->
     <EditText
-        android:id="@+id/editTextInsta"
+        android:id="@+id/editInstagram"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="48dp"
         android:gravity="center"
         android:textColor="@color/dark_gray"
         android:textColorHint="@color/gray"
-        android:text="북스타그램"
+        android:text="BookStagram"
         android:textSize="18sp"
         android:textStyle="bold" />
 
