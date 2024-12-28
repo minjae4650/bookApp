@@ -37,6 +37,7 @@ class ContactDetailFragment : Fragment() {
         val choosePhotoButton: Button = view.findViewById(R.id.buttonChoosePhoto)
         val callButton: Button = view.findViewById(R.id.buttonCall) // 추가된 버튼
         val instagramButton: Button = view.findViewById(R.id.buttonInstagram) // 추가된 버튼
+        val deleteButton: Button = view.findViewById(R.id.buttonDelete) // 추가된 삭제 버튼
         profileImageView = view.findViewById(R.id.profileImage)
 
         // 전달받은 데이터를 초기화
@@ -114,7 +115,31 @@ class ContactDetailFragment : Fragment() {
             }
         }
 
+        // 삭제 버튼 클릭 시 연락처 삭제
+        deleteButton.setOnClickListener {
+            // 삭제 확인 팝업을 띄운다
+            showDeleteConfirmationDialog() }
+
         return view
+    }
+
+    // 삭제 확인 팝업을 표시하는 함수
+    private fun showDeleteConfirmationDialog() {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setMessage("Are you sure to delete this contact?")
+            .setCancelable(false) // 배경 클릭으로 닫히지 않게 설정
+            .setPositiveButton("confirm") { dialog, id ->
+                // 사용자가 확인을 클릭한 경우 연락처 삭제
+                deleteContact()
+            }
+            .setNegativeButton("cancel") { dialog, id ->
+                // 사용자가 취소를 클릭한 경우 아무 일도 하지 않음
+                dialog.dismiss()
+            }
+
+        // 다이얼로그를 화면에 표시
+        val alert = builder.create()
+        alert.show()
     }
 
     // TextWatcher를 생성하는 함수
@@ -184,6 +209,21 @@ class ContactDetailFragment : Fragment() {
 
         // UI 갱신을 위해 데이터 전달
         parentFragmentManager.popBackStack() // 뒤로 가기
+    }
+
+    // 삭제된 연락처를 SharedPreferences에서 삭제하는 함수
+    private fun deleteContact() {
+        val contactList = contactPreferences.getContacts().toMutableList()
+
+        // 연락처 목록에서 해당 연락처 삭제
+        val index = contactList.indexOfFirst { it.name == contact?.name && it.phone == contact?.phone }
+        if (index != -1) {
+            contactList.removeAt(index)
+            contactPreferences.saveContacts(contactList) // 변경된 리스트 저장
+        }
+
+        // 연락처 삭제 후 이전 화면으로 돌아가기
+        parentFragmentManager.popBackStack()
     }
 
     // 이미지 선택 팝업을 표시하는 함수
