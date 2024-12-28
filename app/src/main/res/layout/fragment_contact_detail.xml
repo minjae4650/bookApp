@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    tools:context=".ContactDetailFragment">
+
+    <!-- 프로필 이미지 -->
+    <ImageView
+        android:id="@+id/profileImageView"
+        android:layout_width="175dp"
+        android:layout_height="166dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/default_profile"
+        android:contentDescription="Profile Image" />
+
+    <!-- Button for uploading photo, placed above the text boxes -->
+    <Button
+        android:id="@+id/buttonChoosePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/dark_gray"
+        android:text="Choose Mimoji" />
+
+    <!-- 이름 수정 -->
+    <EditText
+        android:id="@+id/editTextName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:gravity="center"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/gray"
+        android:text="이름"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- 전화번호 수정 -->
+    <EditText
+        android:id="@+id/editTextPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:gravity="center"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/gray"
+        android:text="전화번호"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- 인스타그램 수정 -->
+    <EditText
+        android:id="@+id/editTextInsta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:gravity="center"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/gray"
+        android:text="북스타그램"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Button for uploading photo, placed above the text boxes -->
+    <Button
+        android:id="@+id/buttonSave"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/pastel_blue_dark"
+        android:textColor="@color/white"
+        android:text="Save"
+        android:textSize="18sp"/>
+
+</LinearLayout>

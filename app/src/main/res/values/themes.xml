@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.BookApp" parent="android:Theme.Material.Light.NoActionBar" />
+    <!-- 기본 테마 정의 -->
+    <style name="Theme.BookApp" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- 기본 색상 -->
+        <item name="colorPrimary">@color/pastel_blue_primary</item>
+        <item name="colorPrimaryDark">@color/pastel_blue_dark</item>
+        <item name="colorAccent">@color/pastel_blue_accent</item>
+
+        <!-- 상태바 및 내비게이션바 설정 -->
+        <item name="android:statusBarColor">@color/pastel_blue_primary</item>
+        <item name="android:navigationBarColor">@color/pastel_blue_primary</item>
+    </style>
+
 </resources>
