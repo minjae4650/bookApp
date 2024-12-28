@@ -1,8 +1,11 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:padding="16dp">
+    android:padding="30dp"
+    android:gravity="center"
+    >
 
     <!-- 이미지 영역 -->
     <FrameLayout
@@ -16,16 +19,16 @@
             android:id="@+id/bookImage"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:scaleType="centerCrop" />
 
         <!-- 편집 아이콘 -->
         <ImageView
             android:id="@+id/editIcon"
-            android:layout_width="40dp"
-            android:layout_height="40dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:src="@drawable/edit_draw"
-            android:visibility="visible" />
+            android:src="@drawable/edit_draw" />
     </FrameLayout>
 
     <!-- 제목 -->
@@ -33,17 +36,18 @@
         android:id="@+id/bookTitleTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="제목: "
-        android:textSize="18sp"
+        android:text="Title : "
+        android:textSize="16sp"
         android:textStyle="bold"
         android:layout_marginBottom="8dp"
-        android:visibility="visible" />
+        android:visibility="visible"
+        android:layout_gravity="left"/>
 
     <EditText
         android:id="@+id/bookTitleEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="제목 수정"
+        android:hint="Demian"
         android:visibility="gone"
         android:background="@android:drawable/editbox_background" />
 
@@ -52,16 +56,18 @@
         android:id="@+id/bookAuthorTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="저자: "
+        android:text="Author : "
+        android:textStyle="bold"
         android:textSize="16sp"
         android:layout_marginBottom="8dp"
+        android:layout_gravity="left"
         android:visibility="visible" />
 
     <EditText
         android:id="@+id/bookAuthorEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="저자 수정"
+        android:hint="Hermann Hesse"
         android:visibility="gone"
         android:background="@android:drawable/editbox_background" />
 
@@ -70,16 +76,18 @@
         android:id="@+id/bookReviewTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="나만의 감상평"
+        android:text="Description : "
+        android:textStyle="bold"
         android:textSize="16sp"
         android:layout_marginBottom="8dp"
+        android:layout_gravity="left"
         android:visibility="visible" />
 
     <EditText
         android:id="@+id/bookReviewEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="감상평 입력"
+        android:hint="so interesting !"
         android:visibility="gone"
         android:background="@android:drawable/editbox_background"
         android:inputType="textMultiLine"
@@ -100,14 +108,18 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="수정"
-            android:layout_marginEnd="8dp" />
+            android:text="Edit"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/pastel_blue_dark"
+            android:textColor="@android:color/white"/>
 
         <Button
             android:id="@+id/closeButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="닫기" />
+            android:text="Close"
+            android:backgroundTint="@color/pastel_blue_dark"
+            android:textColor="@android:color/white"/>
     </LinearLayout>
 </LinearLayout>

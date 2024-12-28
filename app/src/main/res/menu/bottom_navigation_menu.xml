@@ -3,14 +3,16 @@
 
     <item
         android:id="@+id/nav_contacts"
-        android:icon="@drawable/phone"
+        android:icon="@drawable/default_profile"
         android:title="Contacts" />
 
     <item
         android:id="@+id/nav_tab2"
-        android:title="Tab 2" />
+        android:icon="@drawable/default_profile"
+        android:title="Archive" />
 
     <item
         android:id="@+id/nav_tab3"
-        android:title="Tab 3" />
+        android:icon="@drawable/default_profile"
+        android:title="Calendar" />
 </menu>
