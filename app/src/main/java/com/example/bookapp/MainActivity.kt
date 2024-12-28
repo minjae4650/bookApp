@@ -4,6 +4,7 @@ import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import com.example.bookapp.tab2.BooksFragment
+import com.example.bookapp.tab3.CalendarFragment
 import com.google.android.material.bottomnavigation.BottomNavigationView
 
 class MainActivity : AppCompatActivity() {
@@ -28,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                     true
                 }
                 R.id.nav_tab3 -> {
-                    loadFragment(EmptyFragment("Tab 3 Content"), false) // 탭 3
+                    loadFragment(CalendarFragment(), false) // 탭 3
                     true
                 }
                 else -> false
