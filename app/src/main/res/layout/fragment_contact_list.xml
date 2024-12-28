@@ -17,6 +17,7 @@
         android:textColor="@android:color/white"
         android:text="Add Contact"
         android:padding="8dp"
+        android:textSize="18sp"
         android:layout_margin="8dp"/>
 
     <!-- 연락처 목록 -->
@@ -24,6 +25,7 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:textSize="20sp"
         tools:listitem="@layout/item_contact" />
 
     <androidx.fragment.app.FragmentContainerView

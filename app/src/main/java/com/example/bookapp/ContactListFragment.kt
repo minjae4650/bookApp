@@ -1,5 +1,6 @@
 package com.example.bookapp
 
+import Contact
 import ContactPreferences
 import android.app.AlertDialog
 import android.os.Bundle
@@ -61,9 +62,9 @@ class ContactListFragment : Fragment() {
 
     override fun onResume() {
         super.onResume()
-        // onResume에서 연락처 목록을 갱신하여 동기화
+        // 필요시 목록 갱신
         contactList = contactPreferences.getContacts().toMutableList()
-        contactAdapter.notifyDataSetChanged() // 어댑터에 변경된 데이터를 반영
+        contactAdapter.notifyDataSetChanged()
     }
 
     private fun showAddContactDialog() {
@@ -83,7 +84,7 @@ class ContactListFragment : Fragment() {
                 val defaultProfileImage = R.drawable.default_profile
 
                 if (name.isNotEmpty() && phone.isNotEmpty() && insta.isNotEmpty()) {
-                    val newContact = Contact(name, phone, insta, profileImage = defaultProfileImage)
+                    val newContact = Contact(name, phone, insta, defaultProfileImage)
                     contactList.add(newContact)
                     contactPreferences.saveContacts(contactList) // 새로운 연락처 저장
                     contactAdapter.notifyItemInserted(contactList.size - 1)

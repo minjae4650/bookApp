@@ -8,8 +8,8 @@
     <!-- ImageView for Contact's Photo -->
     <ImageView
         android:id="@+id/contactImage"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
         android:layout_marginEnd="16dp"
         android:scaleType="centerCrop"
         android:padding="5dp"/>
@@ -24,9 +24,10 @@
             android:id="@+id/contactName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="18sp"
+            android:textSize="25sp"
             android:text="Contact Name"
             android:ellipsize="end"
+            android:layout_gravity="bottom"
             android:maxLines="1"/>
 
     </LinearLayout>
