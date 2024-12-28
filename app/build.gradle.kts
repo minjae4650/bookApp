@@ -53,6 +53,7 @@ dependencies {
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
     implementation ("com.google.code.gson:gson:2.8.9") // Gson 라이브러리 추가
+    implementation ("com.google.android.material:material:1.9.0") // Calendar 라이브러리 추가
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
