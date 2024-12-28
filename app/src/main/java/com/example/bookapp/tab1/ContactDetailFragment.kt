@@ -1,6 +1,8 @@
 package com.example.bookapp.tab1
 
 import ContactPreferences
+import android.content.Intent
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -31,6 +33,8 @@ class ContactDetailFragment : Fragment() {
         val instaEditText: EditText = view.findViewById(R.id.editInstagram)
         val saveButton: Button = view.findViewById(R.id.buttonSave)
         val choosePhotoButton: Button = view.findViewById(R.id.buttonChoosePhoto)
+        val callButton: Button = view.findViewById(R.id.buttonCall) // 추가된 버튼
+        val instagramButton: Button = view.findViewById(R.id.buttonInstagram) // 추가된 버튼
         profileImageView = view.findViewById(R.id.profileImage)
 
         // 전달받은 데이터를 초기화
@@ -62,6 +66,25 @@ class ContactDetailFragment : Fragment() {
         // 사진 선택 버튼 클릭 시 팝업 표시
         choosePhotoButton.setOnClickListener {
             showImageSelectionDialog()
+        }
+
+        // 전화 버튼 클릭 시 전화 앱 열기
+        callButton.setOnClickListener {
+            val phone = phoneEditText.text.toString()
+            if (phone.isNotEmpty()) {
+                val intent = Intent(Intent.ACTION_DIAL, Uri.parse("tel:$phone"))
+                startActivity(intent)
+            }
+        }
+
+        // 인스타그램 버튼 클릭 시 브라우저 열기
+        instagramButton.setOnClickListener {
+            val instaId = instaEditText.text.toString()
+            if (instaId.isNotEmpty()) {
+                val url = "https://www.instagram.com/$instaId"
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+                startActivity(intent)
+            }
         }
 
         return view
