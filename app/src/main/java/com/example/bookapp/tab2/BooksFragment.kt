@@ -30,7 +30,7 @@ class BooksFragment : Fragment() {
 
         // Sample data
         val books = mutableListOf(
-            Book("추가하기", R.drawable.plus_draw),
+            Book("추가하기", R.drawable.edit_draw),
             Book("서울의 밤", R.drawable.book1, "저자 A", "이 책은 흥미로워요."),
             Book("도시 이야기", R.drawable.book2, "저자 B", "여행에 관한 이야기입니다.")
         )
