@@ -37,7 +37,7 @@ class BooksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_books, container, false)
-
+        
         // SharedPreferences 초기화
         bookPreferences = BookPreferences(requireContext())
 
