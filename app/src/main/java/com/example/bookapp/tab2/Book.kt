@@ -1,11 +1,9 @@
 package com.example.bookapp.tab2
 
-import android.net.Uri
-
 data class Book(
-    var title: String,
-    val imageResId: Int = 0,
-    var author: String = "미상",
+    var title: String = "",
+    var imageResId: Int = 0,
+    var author: String = "",
     var review: String = "",
-    var imageUri: Uri? = null // User-selected image URI
+    var imageFilePath: String? = null  // 내부 저장소에 복사된 파일 경로
 )
