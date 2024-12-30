@@ -11,6 +11,8 @@ import android.widget.*
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.davemorrissey.labs.subscaleview.ImageSource
+import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.example.bookapp.R
 import com.example.bookapp.data.BookPreferences
 import java.io.File
@@ -264,19 +266,22 @@ class BooksFragment : Fragment() {
             } else {
                 val fullScreenDialog = Dialog(requireContext())
                 fullScreenDialog.setContentView(R.layout.fullscreen_image_layout)
-                val fullScreenImage = fullScreenDialog.findViewById<ImageView>(R.id.fullScreenImage)
+                val fullScreenImage = fullScreenDialog.findViewById<SubsamplingScaleImageView>(R.id.fullScreenImage)
 
                 if (!book?.imageFilePath.isNullOrEmpty()) {
                     val file = File(book!!.imageFilePath)
                     if (file.exists()) {
-                        val bitmap = android.graphics.BitmapFactory.decodeFile(file.absolutePath)
-                        fullScreenImage.setImageBitmap(bitmap)
+                        // SubsamplingScaleImageView에 파일 경로로 이미지 설정
+                        fullScreenImage.setImage(ImageSource.uri(Uri.fromFile(file)))
                     } else {
-                        fullScreenImage.setImageResource(book!!.imageResId)
+                        // 기본 리소스 이미지를 설정할 경우
+                        fullScreenImage.setImage(ImageSource.resource(book!!.imageResId))
                     }
                 } else {
-                    fullScreenImage.setImageResource(book?.imageResId ?: R.drawable.plus_draw)
+                    // 기본 리소스 이미지를 설정
+                    fullScreenImage.setImage(ImageSource.resource(book?.imageResId ?: R.drawable.plus_draw))
                 }
+
                 fullScreenDialog.show()
             }
         }
