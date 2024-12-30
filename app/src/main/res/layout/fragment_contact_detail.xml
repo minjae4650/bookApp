@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    android:gravity="center"
+    tools:context=".tab1.ContactDetailFragment">
+
+    <!-- 프로필 이미지 -->
+    <ImageView
+        android:id="@+id/profileImage"
+        android:layout_width="175dp"
+        android:layout_height="166dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginBottom="8dp"
+        android:src="@drawable/default_profile"
+        android:contentDescription="Profile Image" />
+
+    <!-- Button for uploading photo, placed above the text boxes -->
+    <Button
+        android:id="@+id/buttonChoosePhoto"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="0dp"
+        android:layout_marginBottom="16dp"
+        android:backgroundTint="@color/white"
+        android:textColor="@color/dark_gray"
+        android:text="Choose Mimoji" />
+
+    <!-- 이름 수정 -->
+    <EditText
+        android:id="@+id/editName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:gravity="center"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/gray"
+        android:text="Name"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- 전화번호 수정 -->
+    <EditText
+        android:id="@+id/editPhone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:gravity="center"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/gray"
+        android:text="Phone"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- 인스타그램 수정 -->
+    <EditText
+        android:id="@+id/editInstagram"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="48dp"
+        android:gravity="center"
+        android:textColor="@color/dark_gray"
+        android:textColorHint="@color/gray"
+        android:text="BookStagram"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <!-- Layout for Save and Delete buttons -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:layout_marginBottom="32dp">
+
+        <!-- Delete Button -->
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/buttonSave"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/pastel_blue_dark"
+            android:textColor="@color/white"
+            android:text="Save"
+            android:textSize="18sp"/>
+
+        <Button
+            android:id="@+id/buttonDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="16dp"
+            android:backgroundTint="@color/red"
+            android:textColor="@color/white"
+            android:text="Delete"
+            android:textSize="18sp" />
+    </LinearLayout>
+
+    <!-- 전화 및 인스타그램 버튼을 포함하는 하단 영역 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_gravity="bottom"
+        android:gravity="center"
+        android:layout_marginTop="32dp">
+
+        <!-- Call Button -->
+        <Button
+            android:id="@+id/buttonCall"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/pastel_blue_accent"
+            android:textColor="@color/white"
+            android:text="Call"
+            android:textSize="16sp" />
+
+        <!-- Instagram Button -->
+        <Button
+            android:id="@+id/buttonInstagram"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/pastel_blue_accent"
+            android:textColor="@color/white"
+            android:text="Instagram"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+</LinearLayout>

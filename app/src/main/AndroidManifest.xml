@@ -15,8 +15,23 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.BookApp"
         tools:targetApi="31">
+
+        <!-- SplashActivity를 앱 시작 화면으로 설정 -->
         <activity
-            android:name=".MainActivity"
+            android:name="com.example.bookapp.tab1.SplashActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait"
+            android:exported="true"
+            android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.example.bookapp.tab1.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
             android:theme="@style/Theme.BookApp">
