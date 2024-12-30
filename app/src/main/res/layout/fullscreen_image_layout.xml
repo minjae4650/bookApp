@@ -5,9 +5,10 @@
     android:gravity="center"
     android:background="#000000">
 
-    <ImageView
+    <com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
         android:id="@+id/fullScreenImage"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="fitCenter" />
+        android:scaleType="centerInside"
+        android:background="#000000" />
 </LinearLayout>
