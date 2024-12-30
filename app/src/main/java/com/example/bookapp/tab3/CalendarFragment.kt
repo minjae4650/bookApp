@@ -1,5 +1,7 @@
 package com.example.bookapp.tab3
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -12,13 +14,16 @@ import java.util.*
 
 class CalendarFragment : Fragment() {
 
-    private val scheduleMap = HashMap<String, String>() // 날짜와 일정을 저장할 Map
-    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault()) // 날짜 포맷
+    private lateinit var sharedPreferences: SharedPreferences
+    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_calendar, container, false)
+
+        // SharedPreferences 초기화
+        sharedPreferences = requireContext().getSharedPreferences("SchedulePrefs", Context.MODE_PRIVATE)
 
         val calendarView = rootView.findViewById<CalendarView>(R.id.calendarView)
         val selectedDateTextView = rootView.findViewById<TextView>(R.id.selectedDateTextView)
@@ -31,28 +36,23 @@ class CalendarFragment : Fragment() {
         var selectedDate = dateFormat.format(currentDate)
         selectedDateTextView.text = "선택된 날짜: $selectedDate"
 
-        // 초기 스케줄 표시
-        scheduleListTextView.text = scheduleMap[selectedDate] ?: "등록된 일정이 없습니다."
+        // 선택된 날짜의 일정 불러오기
+        scheduleListTextView.text = getSchedule(selectedDate)
 
         // 날짜 선택 이벤트
         calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
             selectedDate = "$year-${month + 1}-$dayOfMonth"
             selectedDateTextView.text = "선택된 날짜: $selectedDate"
-            scheduleListTextView.text = scheduleMap[selectedDate] ?: "등록된 일정이 없습니다."
+            scheduleListTextView.text = getSchedule(selectedDate)
         }
 
         // 일정 추가 버튼
         addScheduleButton.setOnClickListener {
             val newSchedule = scheduleEditText.text.toString().trim()
             if (newSchedule.isNotEmpty()) {
-                val existingSchedules = scheduleMap[selectedDate]
-                scheduleMap[selectedDate] = if (existingSchedules != null) {
-                    "$existingSchedules\n$newSchedule"
-                } else {
-                    newSchedule
-                }
+                val updatedSchedule = addSchedule(selectedDate, newSchedule)
+                scheduleListTextView.text = updatedSchedule
                 scheduleEditText.text.clear()
-                scheduleListTextView.text = scheduleMap[selectedDate]
                 Toast.makeText(requireContext(), "일정이 추가되었습니다.", Toast.LENGTH_SHORT).show()
             } else {
                 Toast.makeText(requireContext(), "일정을 입력해주세요.", Toast.LENGTH_SHORT).show()
@@ -60,5 +60,22 @@ class CalendarFragment : Fragment() {
         }
 
         return rootView
+    }
+
+    // SharedPreferences에서 특정 날짜의 일정 불러오기
+    private fun getSchedule(date: String): String {
+        return sharedPreferences.getString(date, "등록된 일정이 없습니다.") ?: "등록된 일정이 없습니다."
+    }
+
+    // 특정 날짜에 일정 추가 후 업데이트된 일정 반환
+    private fun addSchedule(date: String, newSchedule: String): String {
+        val existingSchedule = getSchedule(date)
+        val updatedSchedule = if (existingSchedule == "등록된 일정이 없습니다.") {
+            newSchedule
+        } else {
+            "$existingSchedule\n$newSchedule"
+        }
+        sharedPreferences.edit().putString(date, updatedSchedule).apply()
+        return updatedSchedule
     }
 }
