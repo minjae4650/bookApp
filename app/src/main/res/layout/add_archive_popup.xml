@@ -115,12 +115,24 @@
             android:textColor="@android:color/white"/>
 
         <Button
+            android:id="@+id/buttonDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/red"
+            android:textColor="@android:color/white"
+            android:text="delete"/>
+
+        <Button
             android:id="@+id/closeButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="Close"
-            android:backgroundTint="@color/pastel_blue_dark"
+            android:backgroundTint="@color/pastel_blue_darkest"
             android:textColor="@android:color/white"/>
+
     </LinearLayout>
+
 </LinearLayout>

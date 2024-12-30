@@ -77,7 +77,7 @@ class BooksFragment : Fragment() {
         bookTitleEditText.visibility = View.VISIBLE
         bookAuthorEditText.visibility = View.VISIBLE
         bookReviewEditText.visibility = View.VISIBLE
-        addButton.text = "추가"
+        addButton.text = "ADD"
 
         popupImageView?.setOnClickListener {
             val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)

@@ -2,6 +2,7 @@
 <resources>
     <color name="pastel_blue_primary">#D1E8FC</color> <!-- 메인 blue -->
     <color name="pastel_blue_dark">#A2D2FF</color>    <!-- 어두운 blue-->
+    <color name="pastel_blue_darkest">#395886</color>    <!-- 어두운 blue-->
     <color name="pastel_blue_accent">#8FC9FF</color>  <!-- 강조 blue-->
     <color name="white">#FFFFFF</color>
     <color name="gray">#dee2e6</color>
