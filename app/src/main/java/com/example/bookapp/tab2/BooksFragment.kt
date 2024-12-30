@@ -210,7 +210,7 @@ class BooksFragment : Fragment() {
                 if (book?.imageUri != null) {
                     fullScreenImage.setImageURI(book.imageUri)
                 } else {
-                    fullScreenImage.setImageResource(book?.imageResId ?: R.drawable.plus_draw)
+                    fullScreenImage.setImageResource(book?.imageResId ?: R.drawable.edit_draw)
                 }
 
                 fullScreenDialog.show()
