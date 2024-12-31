@@ -48,12 +48,12 @@ class BooksFragment : Fragment() {
 
         // 비어있으면 "추가하기" + 샘플데이터
         if (books.isEmpty()) {
-            books.add(Book("추가하기", R.drawable.plus_draw))
+            books.add(Book("추가하기", R.drawable.edit_draw))
         } else {
             // 이미 데이터가 있더라도, "추가하기"가 없으면 0번에 추가
             val hasAddItem = books.any { it.title == "추가하기" }
             if (!hasAddItem) {
-                books.add(0, Book("추가하기", R.drawable.plus_draw))
+                books.add(0, Book("추가하기", R.drawable.edit_draw))
             }
         }
 
@@ -279,7 +279,7 @@ class BooksFragment : Fragment() {
                     }
                 } else {
                     // 기본 리소스 이미지를 설정
-                    fullScreenImage.setImage(ImageSource.resource(book?.imageResId ?: R.drawable.plus_draw))
+                    fullScreenImage.setImage(ImageSource.resource(book?.imageResId ?: R.drawable.edit_draw))
                 }
 
                 fullScreenDialog.show()
