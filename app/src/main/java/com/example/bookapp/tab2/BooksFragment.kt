@@ -159,6 +159,36 @@ class BooksFragment : Fragment() {
         dialog.show()
     }
 
+    private fun showAddCommentPopup(book: Book) {
+        val dialog = Dialog(requireContext())
+        dialog.setContentView(R.layout.add_comment_popup)
+
+        val commentEditText = dialog.findViewById<EditText>(R.id.commentEditText)
+        val addCommentButton = dialog.findViewById<Button>(R.id.addCommentButton)
+
+        addCommentButton.setOnClickListener {
+            val newComment = commentEditText.text.toString()
+            if (newComment.isNotBlank()) {
+                book.comments.add(newComment)
+
+                // SharedPreferences 저장
+                bookPreferences.saveBooks(bookAdapter.getBooks())
+
+                // 어댑터 갱신
+                val position = bookAdapter.getBooks().indexOf(book)
+                bookAdapter.notifyItemChanged(position)
+
+                Toast.makeText(requireContext(), "Comment is added now.", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            } else {
+                Toast.makeText(requireContext(), "Write a comment.", Toast.LENGTH_SHORT).show()
+            }
+        }
+
+        dialog.show()
+    }
+
+
     /**
      * “책 편집” 팝업
      */
@@ -285,6 +315,13 @@ class BooksFragment : Fragment() {
 
                 fullScreenDialog.show()
             }
+
+            val addCommentButton = dialog.findViewById<Button>(R.id.addCommentButton)
+            addCommentButton.setOnClickListener {
+                book?.let { showAddCommentPopup(it) }
+            }
+
+            dialog.show()
         }
 
         popupImageView?.setOnClickListener(imageClickListener)
