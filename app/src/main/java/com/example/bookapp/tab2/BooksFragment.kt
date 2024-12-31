@@ -47,25 +47,10 @@ class BooksFragment : Fragment() {
         // 저장된 책 목록 불러오기
         val books = bookPreferences.getBooks()
 
-        // 비어있으면 "추가하기" + 샘플데이터
-        if (books.isEmpty()) {
-            books.add(Book("추가하기", R.drawable.edit_draw))
-        } else {
-            // 이미 데이터가 있더라도, "추가하기"가 없으면 0번에 추가
-            val hasAddItem = books.any { it.title == "추가하기" }
-            if (!hasAddItem) {
-                books.add(0, Book("추가하기", R.drawable.edit_draw))
-            }
-        }
-
         // Initialize RecyclerView
         val recyclerView = rootView.findViewById<RecyclerView>(R.id.recyclerView)
         recyclerView.layoutManager = GridLayoutManager(context, 2)
         bookAdapter = BookAdapter(books) { book ->
-            if (book.title == "추가하기") {
-                showAddPopup()
-                return@BookAdapter
-            }
             selectedBook = book
             tempBook = book.copy()
             showEditPopup(tempBook)
@@ -200,7 +185,6 @@ class BooksFragment : Fragment() {
         val closeButton = dialog.findViewById<Button>(R.id.closeButton)
         val deleteButton = dialog.findViewById<Button>(R.id.buttonDelete)
 
-        // 책 데이터 설정
         if (book != null) {
             if (!book.imageFilePath.isNullOrEmpty()) {
                 val file = File(book.imageFilePath)
@@ -218,7 +202,12 @@ class BooksFragment : Fragment() {
             bookReviewTextView.text = book.review
         }
 
-        // 수정 버튼 클릭 시
+        editIcon.visibility = View.GONE
+        bookTitleEditText.visibility = View.GONE
+        bookAuthorEditText.visibility = View.GONE
+        bookReviewEditText.visibility = View.GONE
+        editButton.text = "Edit"
+
         editButton.setOnClickListener {
             val isEditing = (bookTitleEditText.visibility == View.VISIBLE)
             if (isEditing) {
@@ -232,7 +221,7 @@ class BooksFragment : Fragment() {
                         sel.imageFilePath = tempBook?.imageFilePath
                     }
 
-                    // RecyclerView 갱신
+                    // 어댑터 갱신
                     val position = bookAdapter.getBooks().indexOf(sel)
                     bookAdapter.updateBook(position, sel)
 
@@ -248,10 +237,12 @@ class BooksFragment : Fragment() {
                 bookTitleTextView.visibility = View.VISIBLE
                 bookAuthorTextView.visibility = View.VISIBLE
                 bookReviewTextView.visibility = View.VISIBLE
+                editIcon.visibility = View.GONE
                 bookTitleEditText.visibility = View.GONE
                 bookAuthorEditText.visibility = View.GONE
                 bookReviewEditText.visibility = View.GONE
-                editButton.text = "수정"
+                editIcon.visibility = View.GONE
+                editButton.text = "Edit"
             } else {
                 bookTitleTextView.visibility = View.GONE
                 bookAuthorTextView.visibility = View.GONE
@@ -264,9 +255,40 @@ class BooksFragment : Fragment() {
                 bookAuthorEditText.setText(selectedBook?.author)
                 bookReviewEditText.setText(selectedBook?.review)
 
-                editButton.text = "저장"
+                editIcon.visibility = View.VISIBLE
+                editButton.text = "Save"
             }
         }
+
+        val imageClickListener = View.OnClickListener {
+            if (bookTitleEditText.visibility == View.VISIBLE) {
+                val intent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                startActivityForResult(intent, REQUEST_IMAGE_PICK)
+            } else {
+                val fullScreenDialog = Dialog(requireContext())
+                fullScreenDialog.setContentView(R.layout.fullscreen_image_layout)
+                val fullScreenImage = fullScreenDialog.findViewById<SubsamplingScaleImageView>(R.id.fullScreenImage)
+
+                if (!book?.imageFilePath.isNullOrEmpty()) {
+                    val file = File(book!!.imageFilePath)
+                    if (file.exists()) {
+                        // SubsamplingScaleImageView에 파일 경로로 이미지 설정
+                        fullScreenImage.setImage(ImageSource.uri(Uri.fromFile(file)))
+                    } else {
+                        // 기본 리소스 이미지를 설정할 경우
+                        fullScreenImage.setImage(ImageSource.resource(book!!.imageResId))
+                    }
+                } else {
+                    // 기본 리소스 이미지를 설정
+                    fullScreenImage.setImage(ImageSource.resource(book?.imageResId ?: R.drawable.image_placeholder))
+                }
+
+                fullScreenDialog.show()
+            }
+        }
+
+        popupImageView?.setOnClickListener(imageClickListener)
+        editIcon.setOnClickListener(imageClickListener)
 
         // 삭제 버튼 클릭 시
         deleteButton.setOnClickListener {
@@ -285,7 +307,6 @@ class BooksFragment : Fragment() {
             dialog.dismiss()
         }
 
-        // 닫기 버튼 클릭 시
         closeButton.setOnClickListener {
             dialog.dismiss()
         }
@@ -309,6 +330,8 @@ class BooksFragment : Fragment() {
                     // 미리보기
                     val bitmap = android.graphics.BitmapFactory.decodeFile(copiedPath)
                     popupImageView?.setImageBitmap(bitmap)
+                } else {
+                    Toast.makeText(requireContext(), "이미지 복사 실패", Toast.LENGTH_SHORT).show()
                 }
             }
         }

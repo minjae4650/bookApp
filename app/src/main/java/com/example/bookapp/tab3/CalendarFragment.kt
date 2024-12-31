@@ -1,23 +1,27 @@
 package com.example.bookapp.tab3
 
+import android.app.AlertDialog
 import android.content.Context
-import android.content.Intent
 import android.content.SharedPreferences
-import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.bookapp.R
-import com.google.android.material.floatingactionbutton.FloatingActionButton
+import com.prolificinteractive.materialcalendarview.CalendarDay
+import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.text.SimpleDateFormat
 import java.util.*
 
 class CalendarFragment : Fragment() {
 
+    private lateinit var calendarView: MaterialCalendarView
     private lateinit var sharedPreferences: SharedPreferences
+    private lateinit var scheduleListView: ListView
+    private lateinit var scheduleListHeader: TextView
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
     override fun onCreateView(
@@ -28,64 +32,99 @@ class CalendarFragment : Fragment() {
         // SharedPreferences 초기화
         sharedPreferences = requireContext().getSharedPreferences("SchedulePrefs", Context.MODE_PRIVATE)
 
-        val calendarView = rootView.findViewById<CalendarView>(R.id.calendarView)
-        val selectedDateTextView = rootView.findViewById<TextView>(R.id.selectedDateTextView)
-        val scheduleEditText = rootView.findViewById<EditText>(R.id.scheduleEditText)
+        calendarView = rootView.findViewById(R.id.calendarView)
+        scheduleListView = rootView.findViewById(R.id.scheduleListView)
+        scheduleListHeader = rootView.findViewById(R.id.scheduleListHeader)
         val addScheduleButton = rootView.findViewById<Button>(R.id.addScheduleButton)
-        val scheduleListTextView = rootView.findViewById<TextView>(R.id.scheduleListTextView)
+        val selectedDateTextView = rootView.findViewById<TextView>(R.id.selectedDateTextView)
 
-        // 현재 날짜를 텍스트뷰에 표시
-        val currentDate = Calendar.getInstance().time
-        var selectedDate = dateFormat.format(currentDate)
+        var selectedDate = dateFormat.format(Calendar.getInstance().time)
         selectedDateTextView.text = "선택된 날짜: $selectedDate"
-
-        // 선택된 날짜의 일정 불러오기
-        scheduleListTextView.text = getSchedule(selectedDate)
+        updateScheduleList(selectedDate)
 
         // 날짜 선택 이벤트
-        calendarView.setOnDateChangeListener { _, year, month, dayOfMonth ->
-            selectedDate = "$year-${month + 1}-$dayOfMonth"
+        calendarView.setOnDateChangedListener { _, date, _ ->
+            // 월 값 보정 (이미 +1 적용된 상태이므로 그대로 사용)
+            selectedDate = "${date.year}-${date.month}-${date.day}"
             selectedDateTextView.text = "선택된 날짜: $selectedDate"
-            scheduleListTextView.text = getSchedule(selectedDate)
-        }
-
-        // 밀리의 서재 버튼 추가
-        val millieButton = rootView.findViewById<FloatingActionButton>(R.id.millieButton)
-        millieButton.setOnClickListener {
-            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.millie.co.kr/v3/brand"))
-            startActivity(intent)
+            updateScheduleList(selectedDate)
         }
 
         // 일정 추가 버튼
         addScheduleButton.setOnClickListener {
-            val newSchedule = scheduleEditText.text.toString().trim()
-            if (newSchedule.isNotEmpty()) {
-                val updatedSchedule = addSchedule(selectedDate, newSchedule)
-                scheduleListTextView.text = updatedSchedule
-                scheduleEditText.text.clear()
-                Toast.makeText(requireContext(), "일정이 추가되었습니다.", Toast.LENGTH_SHORT).show()
-            } else {
-                Toast.makeText(requireContext(), "일정을 입력해주세요.", Toast.LENGTH_SHORT).show()
-            }
+            showAddScheduleDialog(selectedDate)
         }
 
+        highlightSchedules()
         return rootView
     }
 
-    // SharedPreferences에서 특정 날짜의 일정 불러오기
-    private fun getSchedule(date: String): String {
-        return sharedPreferences.getString(date, "등록된 일정이 없습니다.") ?: "등록된 일정이 없습니다."
+    private fun highlightSchedules() {
+        val events = sharedPreferences.all.keys.mapNotNull {
+            val parts = it.split("-")
+            if (parts.size == 3) {
+                val year = parts[0].toIntOrNull()
+                val month = parts[1].toIntOrNull()
+                val day = parts[2].toIntOrNull()
+                if (year != null && month != null && day != null) {
+                    // month 값 그대로 사용
+                    CalendarDay.from(year, month, day)
+                } else null
+            } else null
+        }.toSet()
+
+        val decorator = EventDecorator(events, ContextCompat.getColor(requireContext(), R.color.main_color))
+        calendarView.addDecorator(decorator)
     }
 
-    // 특정 날짜에 일정 추가 후 업데이트된 일정 반환
-    private fun addSchedule(date: String, newSchedule: String): String {
-        val existingSchedule = getSchedule(date)
-        val updatedSchedule = if (existingSchedule == "등록된 일정이 없습니다.") {
-            newSchedule
+    private fun showAddScheduleDialog(date: String) {
+        val builder = AlertDialog.Builder(requireContext())
+        builder.setTitle("$date 일정 추가")
+
+        val input = EditText(requireContext())
+        input.hint = "일정을 입력하세요"
+        builder.setView(input)
+
+        builder.setPositiveButton("추가") { _, _ ->
+            val schedule = input.text.toString().trim()
+            if (schedule.isNotEmpty()) {
+                addSchedule(date, schedule)
+                updateScheduleList(date)
+                calendarView.invalidateDecorators()
+                Toast.makeText(requireContext(), "일정이 추가되었습니다.", Toast.LENGTH_SHORT).show()
+            } else {
+                Toast.makeText(requireContext(), "내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
+            }
+        }
+        builder.setNegativeButton("취소") { dialog, _ -> dialog.cancel() }
+
+        builder.show()
+    }
+
+    private fun updateScheduleList(date: String) {
+        val scheduleText = sharedPreferences.getString(date, null)
+        val schedules = scheduleText?.split("\n") ?: listOf()
+
+        if (schedules.isNotEmpty()) {
+            scheduleListHeader.visibility = View.VISIBLE
+            scheduleListView.visibility = View.VISIBLE
+
+            val adapter = ArrayAdapter(requireContext(), android.R.layout.simple_list_item_1, schedules)
+            scheduleListView.adapter = adapter
         } else {
-            "$existingSchedule\n$newSchedule"
+            scheduleListHeader.visibility = View.GONE
+            scheduleListView.visibility = View.GONE
+        }
+    }
+
+    private fun addSchedule(date: String, schedule: String) {
+        val existingSchedule = sharedPreferences.getString(date, "")
+        val updatedSchedule = if (existingSchedule.isNullOrEmpty()) {
+            schedule
+        } else {
+            "$existingSchedule\n$schedule"
         }
         sharedPreferences.edit().putString(date, updatedSchedule).apply()
-        return updatedSchedule
+        highlightSchedules()
     }
 }
