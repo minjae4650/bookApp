@@ -1,52 +1,62 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+    android:orientation="vertical"
     android:padding="16dp">
 
-    <!-- 달력 -->
-    <CalendarView
+    <!-- MaterialCalendarView -->
+    <com.prolificinteractive.materialcalendarview.MaterialCalendarView
         android:id="@+id/calendarView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        app:mcv_showOtherDates="all"
+        app:mcv_selectionMode="single"
+        app:mcv_weekDayTextAppearance="@style/CalendarWeekDayStyle"
+        android:layout_marginBottom="16dp" />
 
-    <!-- 선택된 날짜 표시 -->
+    <!-- Selected Date and Add Schedule -->
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginBottom="16dp">
+
+        <TextView
+            android:id="@+id/selectedDateTextView"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textSize="16sp"
+            android:text="선택된 날짜: 없음" />
+
+        <Button
+            android:id="@+id/addScheduleButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="일정 추가" />
+    </LinearLayout>
+
+    <!-- Registered Schedules -->
     <TextView
-        android:id="@+id/selectedDateTextView"
+        android:id="@+id/scheduleListHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="선택된 날짜"
+        android:text="등록된 일정:"
         android:textSize="16sp"
-        android:layout_marginTop="16dp"
-        android:textColor="@android:color/black" />
+        android:layout_marginBottom="8dp"
+        android:visibility="gone" />
 
-    <!-- 일정 입력 -->
-    <EditText
-        android:id="@+id/scheduleEditText"
+    <ListView
+        android:id="@+id/scheduleListView"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:hint="일정을 입력하세요"
-        android:layout_marginTop="16dp" />
-
-    <!-- 일정 추가 버튼 -->
-    <Button
-        android:id="@+id/addScheduleButton"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="일정 추가"
-        android:layout_marginTop="8dp" />
-
-    <!-- 등록된 일정 표시 -->
-    <TextView
-        android:id="@+id/scheduleListTextView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="등록된 일정이 여기에 표시됩니다."
-        android:layout_marginTop="16dp"
-        android:textSize="16sp"
-        android:textColor="@android:color/black" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:divider="@android:color/darker_gray"
+        android:dividerHeight="1dp"
+        android:visibility="gone" />
 
 </LinearLayout>
