@@ -20,6 +20,7 @@ class ContactListFragment : Fragment() {
     private lateinit var contactAdapter: ContactAdapter
     private lateinit var contactPreferences: ContactPreferences
     private var contactList = mutableListOf<Contact>()
+    private var filteredList = mutableListOf<Contact>() // 필터링된 목록
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,10 +32,13 @@ class ContactListFragment : Fragment() {
 
         val recyclerView: RecyclerView = view.findViewById(R.id.recyclerView)
         val addContactButton: Button = view.findViewById(R.id.addContactButton)
+        val searchBar: EditText = view.findViewById(R.id.search_bar)
 
         // 어댑터 초기화
         contactList = contactPreferences.getContacts().toMutableList() // SharedPreferences에서 데이터 불러오기
-        contactAdapter = ContactAdapter(contactList) { contact ->
+        filteredList = contactList.toMutableList()
+
+        contactAdapter = ContactAdapter(filteredList) { contact ->
             // 클릭 시, 수정할 연락처의 세부 정보로 이동
             val contactDetailFragment = ContactDetailFragment().apply {
                 val bundle = Bundle().apply {
@@ -64,13 +68,25 @@ class ContactListFragment : Fragment() {
             showAddContactDialog()
         }
 
+        // 검색바에 TextWatcher 추가
+        searchBar.addTextChangedListener(object : TextWatcher {
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
+
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+                filterContacts(s.toString())
+            }
+
+            override fun afterTextChanged(s: Editable?) {}
+        })
+
         return view
     }
 
     override fun onResume() {
         super.onResume()
         // 필요시 목록 갱신
-        // onResume에서 다시 데이터를 불러오지 않고, 직접 어댑터에서 업데이트가 반영되도록 처리
+        filteredList.clear()
+        filteredList.addAll(contactList)
         contactAdapter.notifyDataSetChanged()
     }
 
@@ -94,7 +110,7 @@ class ContactListFragment : Fragment() {
                     val newContact = Contact(name, phone, insta, defaultProfileImage)
                     contactList.add(newContact)
                     contactPreferences.saveContacts(contactList)
-                    contactAdapter.notifyItemInserted(contactList.size - 1)
+                    filterContacts("") // 전체 목록 갱신
                 }
             }
             .setNegativeButton("Cancel", null)
@@ -125,7 +141,6 @@ class ContactListFragment : Fragment() {
         })
     }
 
-    // TextWatcher를 생성하는 함수
     private fun createTextWatcher(onTextChanged: (String) -> Unit): TextWatcher {
         return object : TextWatcher {
             override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {}
@@ -136,7 +151,6 @@ class ContactListFragment : Fragment() {
         }
     }
 
-    // 모든 필드에 대한 최종 검증 함수
     private fun validateAllFields(
         nameEditText: EditText,
         phoneEditText: EditText,
@@ -166,15 +180,10 @@ class ContactListFragment : Fragment() {
         return isValid
     }
 
-    // Instagram ID 유효성 검사 함수
     private fun validateInstagramId(insta: String): String? {
-        // 인스타그램 아이디가 30자 이하인지 확인
         if (insta.length > 30) return "Instagram ID must be at most 30 characters long"
-        // 공백이 포함되어 있는지 확인
         if (insta.contains(" ")) return "Instagram ID cannot contain spaces"
-        // 유효한 문자만 포함되었는지 확인
         if (!insta.matches("^[a-z0-9_\\.]+$".toRegex())) return "Instagram ID can only contain letters, numbers, underscores, and periods"
-        // 마침표가 연속으로 사용되거나 시작/끝에 오는지 확인
         if (insta.startsWith(".") || insta.endsWith(".") || insta.contains("..")) return "Instagram ID cannot start or end with a period, and cannot contain consecutive periods"
         return null
     }
@@ -186,20 +195,29 @@ class ContactListFragment : Fragment() {
             .setPositiveButton("Delete") { _, _ ->
                 val position = contactList.indexOf(contact)
                 if (position != -1) {
-                    // 리스트에서 연락처 삭제
                     contactList.removeAt(position)
-
-                    // 변경된 목록을 SharedPreferences에 저장
                     contactPreferences.saveContacts(contactList)
-
-                    // 어댑터에 변경 사항 반영 (삭제된 항목만 갱신)
-                    contactAdapter.notifyItemRemoved(position)
-
-                    // 삭제된 항목 이후의 항목들 갱신
-                    contactAdapter.notifyItemRangeChanged(position, contactList.size - position)
+                    filterContacts("") // 전체 목록 갱신
                 }
             }
             .setNegativeButton("Cancel", null)
             .show()
+    }
+
+    private fun filterContacts(query: String) {
+        val lowerCaseQuery = query.lowercase()
+        filteredList.clear()
+
+        if (lowerCaseQuery.isEmpty()) {
+            filteredList.addAll(contactList)
+        } else {
+            filteredList.addAll(contactList.filter { contact ->
+                contact.name.lowercase().contains(lowerCaseQuery) ||
+                        contact.phone.contains(lowerCaseQuery) ||
+                        contact.insta.lowercase().contains(lowerCaseQuery)
+            })
+        }
+
+        contactAdapter.notifyDataSetChanged()
     }
 }
