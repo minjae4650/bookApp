@@ -1,7 +1,9 @@
 package com.example.bookapp.tab3
 
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -9,6 +11,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.fragment.app.Fragment
 import com.example.bookapp.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -44,6 +47,13 @@ class CalendarFragment : Fragment() {
             selectedDate = "$year-${month + 1}-$dayOfMonth"
             selectedDateTextView.text = "선택된 날짜: $selectedDate"
             scheduleListTextView.text = getSchedule(selectedDate)
+        }
+
+        // 밀리의 서재 버튼 추가
+        val millieButton = rootView.findViewById<FloatingActionButton>(R.id.millieButton)
+        millieButton.setOnClickListener {
+            val intent = Intent(Intent.ACTION_VIEW, Uri.parse("https://www.millie.co.kr/v3/brand"))
+            startActivity(intent)
         }
 
         // 일정 추가 버튼

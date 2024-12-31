@@ -62,16 +62,21 @@
         app:layout_constraintEnd_toEndOf="parent" />
 
     <!-- Millie's Library 버튼 -->
-    <ImageButton
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/millieButton"
         android:layout_width="56dp"
         android:layout_height="56dp"
         android:layout_margin="16dp"
         android:src="@drawable/millie_logo"
-        android:background="@drawable/circular_button"
         android:contentDescription="Millie's Library"
-        android:scaleType="centerCrop"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        app:backgroundTint="@color/white"
+        app:srcCompat="@drawable/millie_logo"
+        app:rippleColor="@color/pastel_blue_primary"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+    />
+
 
 </androidx.constraintlayout.widget.ConstraintLayout>
