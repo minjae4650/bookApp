@@ -10,7 +10,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
-import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -85,7 +84,7 @@ class CalendarFragment : Fragment() {
             } else null
         }.toSet()
 
-        calendarView.addDecorator(EventDecorator(events, resources.getColor(R.color.pastel_blue_primary, null)))
+        calendarView.addDecorator(EventDecorator(events, resources.getColor(R.color.pastel_red, null)))
     }
 
     private fun showAddScheduleDialog(date: String) {
@@ -120,9 +119,11 @@ class CalendarFragment : Fragment() {
                 title = title,
                 color = getColorForIndex(index)
             )
-        } ?: listOf()
+        }?.toMutableList() ?: mutableListOf()
 
-        recyclerView.adapter = ScheduleAdapter(schedules)
+        recyclerView.adapter = ScheduleAdapter(schedules) { scheduleToDelete ->
+            deleteSchedule(date, scheduleToDelete) // 삭제 처리
+        }
     }
 
     private fun getColorForIndex(index: Int): Int {
@@ -144,6 +145,13 @@ class CalendarFragment : Fragment() {
         }
         sharedPreferences.edit().putString(date, updatedSchedule).apply()
         highlightSchedules()
+    }
+
+    private fun deleteSchedule(date: String, scheduleToDelete: String) {
+        val existingSchedule = sharedPreferences.getString(date, "") ?: return
+        val updatedSchedule = existingSchedule.split("\n").filter { it != scheduleToDelete }.joinToString("\n")
+        sharedPreferences.edit().putString(date, updatedSchedule).apply()
+        highlightSchedules() // 캘린더 데코레이터 갱신
     }
 
     private fun moveToMilliApp() {
