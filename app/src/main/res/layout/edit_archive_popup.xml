@@ -1,0 +1,142 @@
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="30dp"
+    android:layout_gravity="center"
+    android:maxHeight="600dp"
+    >
+
+    <!-- 이미지 영역 -->
+    <FrameLayout
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:layout_marginBottom="16dp">
+
+        <!-- 책 이미지 -->
+        <ImageView
+            android:id="@+id/bookImage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:scaleType="centerCrop" />
+
+        <!-- 편집 아이콘 -->
+        <ImageView
+            android:id="@+id/editIcon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:src="@drawable/edit_draw"
+            />
+    </FrameLayout>
+
+    <!-- 제목 -->
+    <TextView
+        android:id="@+id/bookTitleTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title : "
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="8dp"
+        android:visibility="visible"
+        android:layout_gravity="left"/>
+
+    <EditText
+        android:id="@+id/bookTitleEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="asdf"
+        android:visibility="gone"
+        android:background="@android:drawable/editbox_background" />
+
+    <!-- 저자 -->
+    <TextView
+        android:id="@+id/bookAuthorTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Author : "
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="left"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/bookAuthorEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Hermann Hesse"
+        android:visibility="gone"
+        android:background="@android:drawable/editbox_background" />
+
+    <!-- 감상평 -->
+    <TextView
+        android:id="@+id/bookReviewTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Description : "
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_marginBottom="8dp"
+        android:layout_gravity="left"
+        android:visibility="visible" />
+
+    <EditText
+        android:id="@+id/bookReviewEditText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="so interesting !"
+        android:visibility="gone"
+        android:background="@android:drawable/editbox_background"
+        android:inputType="textMultiLine"
+        android:gravity="top"
+        android:lines="3"
+        android:minLines="3"
+        android:scrollHorizontally="false" />
+
+    <!-- 버튼 -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/editButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Edit"
+            android:layout_marginEnd="8dp"
+            android:backgroundTint="@color/pastel_blue_dark"
+            android:textColor="@android:color/white"
+            android:background="@drawable/search_bar"/>
+
+        <Button
+            android:id="@+id/buttonDelete"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:layout_margin="8dp"
+            android:backgroundTint="@color/red"
+            android:textColor="@android:color/white"
+            android:text="delete"
+            android:background="@drawable/search_bar"/>
+
+        <Button
+            android:id="@+id/closeButton"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="Close"
+            android:backgroundTint="@color/pastel_blue_darkest"
+            android:textColor="@android:color/white"
+            android:background="@drawable/search_bar"/>
+
+    </LinearLayout>
+
+</LinearLayout>
