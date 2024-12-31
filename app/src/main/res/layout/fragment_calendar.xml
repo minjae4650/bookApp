@@ -43,7 +43,7 @@
             android:layout_marginStart="24dp"
             android:fontFamily="@font/roboto_regular"
             android:gravity="center_horizontal"
-            android:text="선택된 날짜: 없음"
+            android:text="Chosen date : None"
             android:textColor="@color/black"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -55,7 +55,11 @@
             android:id="@+id/addScheduleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="일정 추가" />
+            android:text="Add Schedule"
+            android:backgroundTint="@color/pastel_blue_dark"
+            android:textColor="@color/white"
+            android:background="@drawable/add_contact"
+            android:layout_marginStart="20dp"/>
     </LinearLayout>
 
     <!-- RecyclerView -->
