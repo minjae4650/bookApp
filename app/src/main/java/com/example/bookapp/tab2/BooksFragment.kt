@@ -15,6 +15,7 @@ import com.davemorrissey.labs.subscaleview.ImageSource
 import com.davemorrissey.labs.subscaleview.SubsamplingScaleImageView
 import com.example.bookapp.R
 import com.example.bookapp.data.BookPreferences
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import java.io.File
 import java.io.FileOutputStream
 import java.io.InputStream
@@ -39,7 +40,7 @@ class BooksFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_books, container, false)
-        
+
         // SharedPreferences 초기화
         bookPreferences = BookPreferences(requireContext())
 
@@ -70,6 +71,12 @@ class BooksFragment : Fragment() {
             showEditPopup(tempBook)
         }
         recyclerView.adapter = bookAdapter
+
+        // 플로팅 버튼 클릭 시 이미지 추가 팝업
+        val floatingActionButton: FloatingActionButton = rootView.findViewById(R.id.add_book)
+        floatingActionButton.setOnClickListener {
+            showAddPopup()
+        }
 
         return rootView
     }
@@ -143,8 +150,15 @@ class BooksFragment : Fragment() {
             ) ?: return@setOnClickListener
 
             val books = bookAdapter.getBooks()
-            books.add(1, newBook)
-            bookAdapter.notifyItemInserted(1)
+
+            // books 리스트 크기 확인 후 추가
+            if (books.size > 0) {
+                books.add(1, newBook) // 두 번째 위치에 추가
+                bookAdapter.notifyItemInserted(1)
+            } else {
+                books.add(newBook) // 리스트가 비어 있으면 첫 번째 위치에 추가
+                bookAdapter.notifyItemInserted(0)
+            }
 
             // SharedPreferences 저장
             bookPreferences.saveBooks(books)
@@ -152,14 +166,13 @@ class BooksFragment : Fragment() {
             dialog.dismiss()
         }
 
+
         closeButton.setOnClickListener {
             dialog.dismiss()
         }
 
         dialog.show()
     }
-
-
 
     /**
      * “책 편집” 팝업
@@ -280,7 +293,6 @@ class BooksFragment : Fragment() {
         dialog.show()
     }
 
-
     /**
      * 갤러리에서 이미지 선택 후 돌아옴
      */
@@ -297,8 +309,6 @@ class BooksFragment : Fragment() {
                     // 미리보기
                     val bitmap = android.graphics.BitmapFactory.decodeFile(copiedPath)
                     popupImageView?.setImageBitmap(bitmap)
-                } else {
-                    Toast.makeText(requireContext(), "이미지 복사 실패", Toast.LENGTH_SHORT).show()
                 }
             }
         }

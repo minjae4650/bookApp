@@ -10,7 +10,7 @@
     <Button
         android:id="@+id/addContactButton"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentRight="true"
         android:backgroundTint="@color/pastel_blue_dark"
@@ -18,13 +18,14 @@
         android:text="Add Contact"
         android:padding="8dp"
         android:textSize="18sp"
-        android:layout_margin="8dp"/>
+        android:layout_margin="8dp"
+        android:background="@drawable/add_contact"/>
 
     <!-- 검색창 -->
     <EditText
         android:id="@+id/search_bar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:hint="Search Contacts"
         android:layout_marginHorizontal="8dp"
         android:layout_marginBottom="8dp"
@@ -32,7 +33,7 @@
         android:background="@drawable/search_bar"
         android:inputType="text"
         android:drawablePadding="8dp"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
     <!-- 연락처 목록 -->
     <androidx.recyclerview.widget.RecyclerView
