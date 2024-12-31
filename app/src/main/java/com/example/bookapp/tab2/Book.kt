@@ -5,5 +5,6 @@ data class Book(
     var imageResId: Int = 0,
     var author: String = "",
     var review: String = "",
-    var imageFilePath: String? = null  // 내부 저장소에 복사된 파일 경로
+    var imageFilePath: String? = null,
+    var comments: MutableList<String> = mutableListOf() // New field to store comments
 )

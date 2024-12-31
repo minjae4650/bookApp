@@ -11,6 +11,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageButton
 import android.widget.ImageView
 import androidx.fragment.app.Fragment
 import androidx.appcompat.app.AlertDialog
@@ -35,8 +36,8 @@ class ContactDetailFragment : Fragment() {
         val instaEditText: EditText = view.findViewById(R.id.editInstagram)
         val saveButton: Button = view.findViewById(R.id.buttonSave)
         val choosePhotoButton: Button = view.findViewById(R.id.buttonChoosePhoto)
-        val callButton: Button = view.findViewById(R.id.buttonCall) // 추가된 버튼
-        val instagramButton: Button = view.findViewById(R.id.buttonInstagram) // 추가된 버튼
+        val callButton: ImageButton = view.findViewById(R.id.buttonCall) // 추가된 버튼
+        val instagramButton: ImageButton = view.findViewById(R.id.buttonInstagram) // 추가된 버튼
         val deleteButton: Button = view.findViewById(R.id.buttonDelete) // 추가된 삭제 버튼
         profileImageView = view.findViewById(R.id.profileImage)
 

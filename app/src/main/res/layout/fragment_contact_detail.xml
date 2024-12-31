@@ -119,29 +119,30 @@
         <ImageButton
             android:id="@+id/buttonCall"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:layout_margin="8dp"
             android:src="@drawable/phone_icon"
             android:background="@drawable/call_insta_button"
             android:contentDescription="Call Button"
-            android:layout_gravity="center"
-            android:scaleType="fitCenter"/>
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:padding="8dp"
+            android:layout_gravity="center"/>
 
         <!-- Instagram Button -->
         <ImageButton
             android:id="@+id/buttonInstagram"
             android:layout_width="0dp"
-            android:layout_height="wrap_content"
+            android:layout_height="48dp"
             android:layout_weight="1"
             android:layout_margin="8dp"
             android:background="@drawable/call_insta_button"
             android:src="@drawable/insta_icon"
-            android:layout_gravity="center"
-            android:scaleType="fitCenter"
-            android:maxWidth="100dp"
-            android:maxHeight="100dp"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"
             />
+
 
     </LinearLayout>
 
