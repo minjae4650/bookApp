@@ -26,7 +26,7 @@ class CalendarFragment : Fragment() {
     private lateinit var selectedDateTextView: TextView
     private lateinit var recyclerView: RecyclerView
     private lateinit var sharedPreferences: SharedPreferences
-    private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
+    private val dateFormat = SimpleDateFormat("yyyy-M-d", Locale.getDefault())
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?
@@ -72,6 +72,10 @@ class CalendarFragment : Fragment() {
     }
 
     private fun highlightSchedules() {
+        // 기존 데코레이터 제거
+        calendarView.removeDecorators()
+
+        // 현재 저장된 일정들을 다시 가져옴
         val events = sharedPreferences.all.keys.mapNotNull {
             val parts = it.split("-")
             if (parts.size == 3) {
@@ -150,8 +154,17 @@ class CalendarFragment : Fragment() {
     private fun deleteSchedule(date: String, scheduleToDelete: String) {
         val existingSchedule = sharedPreferences.getString(date, "") ?: return
         val updatedSchedule = existingSchedule.split("\n").filter { it != scheduleToDelete }.joinToString("\n")
-        sharedPreferences.edit().putString(date, updatedSchedule).apply()
-        highlightSchedules() // 캘린더 데코레이터 갱신
+
+        if (updatedSchedule.isEmpty()) {
+            // 모든 일정이 삭제된 경우 키 자체를 제거
+            sharedPreferences.edit().remove(date).apply()
+        } else {
+            // 일정이 남아 있는 경우 업데이트
+            sharedPreferences.edit().putString(date, updatedSchedule).apply()
+        }
+
+        // 캘린더 데코레이터 갱신
+        highlightSchedules()
     }
 
     private fun moveToMilliApp() {

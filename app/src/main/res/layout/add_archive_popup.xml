@@ -30,6 +30,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:src="@drawable/edit_draw"
+            android:alpha="0.8"
             />
     </FrameLayout>
 
@@ -50,7 +51,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Demian"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@android:drawable/editbox_background" />
 
     <!-- 저자 -->
@@ -70,7 +71,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Hermann Hesse"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@android:drawable/editbox_background" />
 
     <!-- 감상평 -->
@@ -90,7 +91,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="so interesting !"
-        android:visibility="gone"
+        android:visibility="visible"
         android:background="@android:drawable/editbox_background"
         android:inputType="textMultiLine"
         android:gravity="top"

@@ -1,3 +1,4 @@
+<!-- res/layout/edit_detail_popup.xml -->
 <ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
@@ -29,7 +30,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/edit_draw" />
+                android:src="@drawable/edit_draw"
+                android:alpha="0.8"/>
         </FrameLayout>
 
         <!-- 제목 및 텍스트 영역 -->
@@ -47,9 +49,55 @@
             android:id="@+id/bookTitleEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="asdf"
+            android:hint="Demian"
             android:visibility="gone"
             android:background="@android:drawable/editbox_background" />
+
+        <!-- 저자 -->
+        <TextView
+            android:id="@+id/bookAuthorTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Author : "
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="left"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/bookAuthorEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Hermann Hesse"
+            android:visibility="gone"
+            android:background="@android:drawable/editbox_background" />
+
+        <!-- 감상평 -->
+        <TextView
+            android:id="@+id/bookReviewTextView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description : "
+            android:textStyle="bold"
+            android:textSize="16sp"
+            android:layout_marginBottom="8dp"
+            android:layout_gravity="left"
+            android:visibility="visible" />
+
+        <EditText
+            android:id="@+id/bookReviewEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="so interesting !"
+            android:visibility="gone"
+            android:background="@android:drawable/editbox_background"
+            android:inputType="textMultiLine"
+            android:gravity="top"
+            android:lines="3"
+            android:minLines="3"
+            android:scrollHorizontally="false" />
+
 
         <!-- 버튼 영역 -->
         <LinearLayout
