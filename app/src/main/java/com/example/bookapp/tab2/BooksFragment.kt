@@ -164,7 +164,7 @@ class BooksFragment : Fragment() {
      */
     private fun showEditPopup(book: Book?) {
         val dialog = Dialog(requireContext())
-        dialog.setContentView(R.layout.add_archive_popup)
+        dialog.setContentView(R.layout.edit_archive_popup)
 
         // 전체화면 or 원하는 사이즈
         dialog.window?.setLayout(
