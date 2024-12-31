@@ -4,15 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".tab1.SplashActivity"
     android:orientation="vertical"
-    android:layout_gravity="center">
+    android:gravity="center"
+    tools:context=".tab1.SplashActivity">
 
     <ImageView
-        android:layout_width="1000dp"
+        android:id="@+id/splashImage"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_margin="0dp"
-        android:gravity="center"
-        android:src="@drawable/logo" />
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"/>
 </LinearLayout>
