@@ -2,16 +2,20 @@ package com.example.bookapp.tab3
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.*
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.example.bookapp.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.text.SimpleDateFormat
@@ -22,7 +26,6 @@ class CalendarFragment : Fragment() {
     private lateinit var calendarView: MaterialCalendarView
     private lateinit var selectedDateTextView: TextView
     private lateinit var recyclerView: RecyclerView
-    private lateinit var floatingActionButton: View
     private lateinit var sharedPreferences: SharedPreferences
     private val dateFormat = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
 
@@ -31,14 +34,16 @@ class CalendarFragment : Fragment() {
     ): View? {
         val rootView = inflater.inflate(R.layout.fragment_calendar, container, false)
 
-        // Initialize views
         calendarView = rootView.findViewById(R.id.calendarView)
         selectedDateTextView = rootView.findViewById(R.id.tv_selected_date)
         recyclerView = rootView.findViewById(R.id.rv_schedule_list)
-        floatingActionButton = rootView.findViewById(R.id.fab_add_schedule)
 
         // SharedPreferences for storing schedules
         sharedPreferences = requireContext().getSharedPreferences("SchedulePrefs", Context.MODE_PRIVATE)
+        val moveToMilliButton = rootView.findViewById<FloatingActionButton>(R.id.millieFloatingButton) // 수정된 부분
+        moveToMilliButton.setOnClickListener {
+            moveToMilliApp()
+        }
 
         // Set up RecyclerView
         recyclerView.layoutManager = LinearLayoutManager(requireContext())
@@ -55,16 +60,32 @@ class CalendarFragment : Fragment() {
             updateScheduleList(selectedDate)
         }
 
-        // FloatingActionButton click listener
-        floatingActionButton.setOnClickListener {
+        // 일정 추가 버튼
+        val addScheduleButton = rootView.findViewById<Button>(R.id.addScheduleButton)
+        addScheduleButton.setOnClickListener {
             val selectedDate = selectedDateTextView.text.toString().removePrefix("선택된 날짜: ").trim()
             showAddScheduleDialog(selectedDate)
         }
 
-        // Highlight schedules on the calendar
         highlightSchedules()
 
         return rootView
+    }
+
+    private fun highlightSchedules() {
+        val events = sharedPreferences.all.keys.mapNotNull {
+            val parts = it.split("-")
+            if (parts.size == 3) {
+                val year = parts[0].toIntOrNull()
+                val month = parts[1].toIntOrNull()
+                val day = parts[2].toIntOrNull()
+                if (year != null && month != null && day != null) {
+                    CalendarDay.from(year, month, day)
+                } else null
+            } else null
+        }.toSet()
+
+        calendarView.addDecorator(EventDecorator(events, resources.getColor(R.color.pastel_blue_primary, null)))
     }
 
     private fun showAddScheduleDialog(date: String) {
@@ -125,19 +146,13 @@ class CalendarFragment : Fragment() {
         highlightSchedules()
     }
 
-    private fun highlightSchedules() {
-        val events = sharedPreferences.all.keys.mapNotNull {
-            val parts = it.split("-")
-            if (parts.size == 3) {
-                val year = parts[0].toIntOrNull()
-                val month = parts[1].toIntOrNull()
-                val day = parts[2].toIntOrNull()
-                if (year != null && month != null && day != null) {
-                    CalendarDay.from(year, month, day)
-                } else null
-            } else null
-        }.toSet()
-
-        calendarView.addDecorator(EventDecorator(events, resources.getColor(R.color.pastel_blue_primary, null)))
+    private fun moveToMilliApp() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("market://details?id=com.millies.library") // 밀리의 서재 패키지 이름
+        if (intent.resolveActivity(requireContext().packageManager) != null) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(requireContext(), "밀리의 서재 앱을 설치해주세요.", Toast.LENGTH_SHORT).show()
+        }
     }
 }
