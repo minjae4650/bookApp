@@ -50,20 +50,20 @@ class CalendarFragment : Fragment() {
 
         // Initialize calendar
         val currentDate = dateFormat.format(Calendar.getInstance().time)
-        selectedDateTextView.text = "선택된 날짜: $currentDate"
+        selectedDateTextView.text = "Chosen date : $currentDate"
         updateScheduleList(currentDate)
 
         // Handle date selection
         calendarView.setOnDateChangedListener { _, date, _ ->
             val selectedDate = "${date.year}-${date.month}-${date.day}"
-            selectedDateTextView.text = "선택된 날짜: $selectedDate"
+            selectedDateTextView.text = "Chosen date : $selectedDate"
             updateScheduleList(selectedDate)
         }
 
         // 일정 추가 버튼
         val addScheduleButton = rootView.findViewById<Button>(R.id.addScheduleButton)
         addScheduleButton.setOnClickListener {
-            val selectedDate = selectedDateTextView.text.toString().removePrefix("선택된 날짜: ").trim()
+            val selectedDate = selectedDateTextView.text.toString().removePrefix("Chosen date : ").trim()
             showAddScheduleDialog(selectedDate)
         }
 
@@ -90,10 +90,10 @@ class CalendarFragment : Fragment() {
 
     private fun showAddScheduleDialog(date: String) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("$date 일정 추가")
+        builder.setTitle("$date Add schedule")
 
         val input = EditText(requireContext())
-        input.hint = "일정을 입력하세요"
+        input.hint = "Put schedule here."
         builder.setView(input)
 
         builder.setPositiveButton("추가") { _, _ ->
@@ -102,13 +102,13 @@ class CalendarFragment : Fragment() {
                 addSchedule(date, schedule)
                 updateScheduleList(date)
                 calendarView.invalidateDecorators()
-                Toast.makeText(requireContext(), "일정이 추가되었습니다.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Schedule is added now.", Toast.LENGTH_SHORT).show()
             } else {
-                Toast.makeText(requireContext(), "내용을 입력해주세요.", Toast.LENGTH_SHORT).show()
+                Toast.makeText(requireContext(), "Fill the context.", Toast.LENGTH_SHORT).show()
             }
         }
 
-        builder.setNegativeButton("취소") { dialog, _ -> dialog.cancel() }
+        builder.setNegativeButton("Cancel") { dialog, _ -> dialog.cancel() }
 
         builder.show()
     }
@@ -152,7 +152,7 @@ class CalendarFragment : Fragment() {
         if (intent.resolveActivity(requireContext().packageManager) != null) {
             startActivity(intent)
         } else {
-            Toast.makeText(requireContext(), "밀리의 서재 앱을 설치해주세요.", Toast.LENGTH_SHORT).show()
+            Toast.makeText(requireContext(), "Install the app <Millie's library>.", Toast.LENGTH_SHORT).show()
         }
     }
 }
