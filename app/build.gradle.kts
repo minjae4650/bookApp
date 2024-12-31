@@ -52,6 +52,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.3.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
     implementation(libs.material)
+    implementation ("com.google.android.material:material:1.9.0")
     implementation ("com.google.code.gson:gson:2.8.9") // Gson 라이브러리 추가
     implementation ("com.google.android.material:material:1.9.0") // Calendar 라이브러리 추가
     implementation ("com.davemorrissey.labs:subsampling-scale-image-view:3.10.0") // 확대 기능 라이브러리 추가
