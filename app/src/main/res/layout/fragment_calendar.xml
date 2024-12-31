@@ -31,13 +31,13 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:textSize="16sp"
-            android:text="선택된 날짜: 없음" />
+            android:text="Chosen schedule : None" />
 
         <Button
             android:id="@+id/addScheduleButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="일정 추가" />
+            android:text="Add schedule" />
     </LinearLayout>
 
     <!-- Registered Schedules -->
@@ -45,7 +45,7 @@
         android:id="@+id/scheduleListHeader"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="등록된 일정:"
+        android:text="Today's schedule :"
         android:textSize="16sp"
         android:layout_marginBottom="8dp"
         android:visibility="gone" />
@@ -59,4 +59,14 @@
         android:dividerHeight="1dp"
         android:visibility="gone" />
 
+    <!-- Floating Button for Millie's Library -->
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+        android:id="@+id/millieFloatingButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/millie_logo"
+        android:layout_gravity="end|bottom"
+        android:layout_margin="16dp"
+        android:contentDescription="Go to Millie's Library"
+        app:backgroundTint="@color/white" />
 </LinearLayout>

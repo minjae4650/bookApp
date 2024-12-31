@@ -2,7 +2,9 @@ package com.example.bookapp.tab3
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,6 +13,7 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import com.example.bookapp.R
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.prolificinteractive.materialcalendarview.CalendarDay
 import com.prolificinteractive.materialcalendarview.MaterialCalendarView
 import java.text.SimpleDateFormat
@@ -37,6 +40,10 @@ class CalendarFragment : Fragment() {
         scheduleListHeader = rootView.findViewById(R.id.scheduleListHeader)
         val addScheduleButton = rootView.findViewById<Button>(R.id.addScheduleButton)
         val selectedDateTextView = rootView.findViewById<TextView>(R.id.selectedDateTextView)
+        val moveToMilliButton = rootView.findViewById<FloatingActionButton>(R.id.millieFloatingButton) // 수정된 부분
+        moveToMilliButton.setOnClickListener {
+            moveToMilliApp()
+        }
 
         var selectedDate = dateFormat.format(Calendar.getInstance().time)
         selectedDateTextView.text = "선택된 날짜: $selectedDate"
@@ -53,6 +60,11 @@ class CalendarFragment : Fragment() {
         // 일정 추가 버튼
         addScheduleButton.setOnClickListener {
             showAddScheduleDialog(selectedDate)
+        }
+
+        // 밀리의 서재 이동 버튼
+        moveToMilliButton.setOnClickListener {
+            moveToMilliApp()
         }
 
         highlightSchedules()
@@ -126,5 +138,15 @@ class CalendarFragment : Fragment() {
         }
         sharedPreferences.edit().putString(date, updatedSchedule).apply()
         highlightSchedules()
+    }
+
+    private fun moveToMilliApp() {
+        val intent = Intent(Intent.ACTION_VIEW)
+        intent.data = Uri.parse("market://details?id=com.millies.library") // 밀리의 서재 패키지 이름
+        if (intent.resolveActivity(requireContext().packageManager) != null) {
+            startActivity(intent)
+        } else {
+            Toast.makeText(requireContext(), "밀리의 서재 앱을 설치해주세요.", Toast.LENGTH_SHORT).show()
+        }
     }
 }
