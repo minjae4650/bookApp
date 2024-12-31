@@ -8,4 +8,6 @@
     <color name="dark_gray">#808080</color>
     <color name="black">#000000</color>
     <color name="red">#ff7171</color>
+    <color name="main_color">#17B397</color>
+    <color name="today_color">#C9EFE8</color>
 </resources>
