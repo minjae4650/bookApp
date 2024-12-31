@@ -11,4 +11,10 @@
     <color name="red">#ff7171</color>
     <color name="main_color">#17B397</color>
     <color name="today_color">#C9EFE8</color>
+
+
+    <color name="pastel_yellow">#FFCB6B</color>
+    <color name="pastel_red">#FF8E7F</color>
+    <color name="pastel_green">#A5EA89</color>
+    <color name="pastel_purple">#59227C</color>
 </resources>
