@@ -27,7 +27,9 @@
         android:layout_marginBottom="16dp"
         android:backgroundTint="@color/white"
         android:textColor="@color/dark_gray"
-        android:text="Choose Mimoji" />
+        android:text="Choose Mimoji"
+        android:background="@drawable/choose_mimoji"
+        />
 
     <!-- 이름 수정 -->
     <EditText
@@ -85,18 +87,23 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/pastel_blue_dark"
             android:textColor="@color/white"
+            android:background="@drawable/add_contact"
             android:text="Save"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:layout_marginStart="16dp"/>
 
         <Button
             android:id="@+id/buttonDelete"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
             android:layout_marginEnd="16dp"
             android:backgroundTint="@color/red"
             android:textColor="@color/white"
             android:text="Delete"
-            android:textSize="18sp" />
+            android:textSize="18sp"
+            android:background="@drawable/add_contact"
+            />
     </LinearLayout>
 
     <!-- 전화 및 인스타그램 버튼을 포함하는 하단 영역 -->
@@ -108,29 +115,33 @@
         android:gravity="center"
         android:layout_marginTop="32dp">
 
-        <!-- Call Button -->
-        <Button
+        <!-- Call Button with Image -->
+        <ImageButton
             android:id="@+id/buttonCall"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="8dp"
-            android:backgroundTint="@color/pastel_blue_darkest"
-            android:textColor="@color/white"
-            android:text="Call"
-            android:textSize="16sp" />
+            android:src="@drawable/phone_icon"
+            android:background="@drawable/call_insta_button"
+            android:contentDescription="Call Button"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"/>
 
         <!-- Instagram Button -->
-        <Button
+        <ImageButton
             android:id="@+id/buttonInstagram"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_margin="8dp"
-            android:backgroundTint="@color/pastel_blue_darkest"
-            android:textColor="@color/white"
-            android:text="Instagram"
-            android:textSize="16sp" />
+            android:background="@drawable/call_insta_button"
+            android:src="@drawable/insta_icon"
+            android:layout_gravity="center"
+            android:scaleType="fitCenter"
+            android:maxWidth="100dp"
+            android:maxHeight="100dp"
+            />
 
     </LinearLayout>
 
