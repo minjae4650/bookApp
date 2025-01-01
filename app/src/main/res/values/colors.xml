@@ -17,4 +17,6 @@
     <color name="pastel_red">#FF8E7F</color>
     <color name="pastel_green">#A5EA89</color>
     <color name="pastel_purple">#59227C</color>
+
+    <color name="light_purple">#D1AEFC</color>
 </resources>
