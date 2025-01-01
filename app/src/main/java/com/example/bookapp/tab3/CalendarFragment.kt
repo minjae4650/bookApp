@@ -69,8 +69,6 @@ class CalendarFragment : Fragment() {
 
         highlightSchedules()
 
-        highlightToday()
-
         return rootView
     }
 
@@ -96,6 +94,7 @@ class CalendarFragment : Fragment() {
         }.toSet()
 
         calendarView.addDecorator(EventDecorator(events, resources.getColor(R.color.pastel_red, null)))
+        highlightToday()
     }
 
     private fun showAddScheduleDialog(date: String) {
