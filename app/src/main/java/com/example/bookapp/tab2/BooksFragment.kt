@@ -224,17 +224,17 @@ class BooksFragment : Fragment() {
         commentAdapter.setOnItemLongClickListener { position ->
             // 롱클릭 시 삭제 다이얼로그
             androidx.appcompat.app.AlertDialog.Builder(requireContext())
-                .setTitle("댓글 삭제")
-                .setMessage("정말로 이 댓글을 삭제하시겠습니까?")
-                .setPositiveButton("삭제") { _, _ ->
+                .setTitle("Delete Comment")
+                .setMessage("Are you sure to delete the comment?")
+                .setPositiveButton("Delete") { _, _ ->
                     book.comments.removeAt(position)
                     commentAdapter.notifyItemRemoved(position)
 
                     // SharedPreferences 반영
                     bookPreferences.saveBooks(bookAdapter.getBooks())
-                    Toast.makeText(requireContext(), "댓글이 삭제되었습니다.", Toast.LENGTH_SHORT).show()
+                    Toast.makeText(requireContext(), "Comment is deleted now.", Toast.LENGTH_SHORT).show()
                 }
-                .setNegativeButton("취소", null)
+                .setNegativeButton("Cancel", null)
                 .show()
         }
         commentsRecyclerView.adapter = commentAdapter
