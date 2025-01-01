@@ -49,7 +49,7 @@
 > 1. **연락처 관리**<br>
 현재 독서 모임에 참여 중인 멤버들의 연락처를 관리할 수 있어요.
 > 2. **Archive**  
-책을 읽고 인상 깊었던 구절 사진이나 책 표지 등과 함께 설명(독후감)을 작성할 수 있어요.
+책을 읽고 인상 깊었던 구절 사진이나 책 표지 등과 함께 설명(독후감), 모임 인증샷을 작성할 수 있어요.
 > 3. **캘린더**  
 독서모임 일정 및 책 공유 서비스(ex. 밀리의 서재) 정기 결제일을 확인할 수 있어요.
 
@@ -77,11 +77,12 @@
     <tr>
       <td align="center"><img src="https://github.com/user-attachments/assets/66f204a7-a0d1-47ac-9ae0-8bb4dd28f61b" width="200" />
           <img src="https://github.com/user-attachments/assets/fff52803-d1ef-4b90-9dc4-5679af72f9ec" width="200" />
-          <img src="https://github.com/user-attachments/assets/142c47ac-74e1-434b-86ee-138d2421bcc0" width="200" /> </td>
+          <img src="https://github.com/user-attachments/assets/142c47ac-74e1-434b-86ee-138d2421bcc0" width="200" /> 
+      <img src="https://github.com/user-attachments/assets/5aa0f546-9ffa-4619-b1c9-3af44e582155" width="200" /></td>
       </td>
-      <td align="center"><img src="https://github.com/user-attachments/assets/1671aca3-7211-4f17-88e9-fa70b3591c61" width="200"/>
-          <img src="https://github.com/user-attachments/assets/0efd8131-0ac2-433b-bf25-bfed25c75eb4" width="200" />
-          <img src = "https://github.com/user-attachments/assets/9a88715a-7668-4086-ad60-c6b6dd116b07" width="200" />
+      <td align="center"><img src="https://github.com/user-attachments/assets/893cb57b-dd63-4b9c-9d2f-bbebcbab7ea2" width="200"/>
+          <img src="https://github.com/user-attachments/assets/ddae401f-85fc-4590-aee9-47677ccb2aad" width="200" />
+          <img src = "https://github.com/user-attachments/assets/749d9013-10c4-452c-a59f-138254be76dc" width="200" />
       </td>
     </tr>
  </table>
@@ -100,7 +101,7 @@
 - 특정 멤버의 상세 정보 (이름, 전화번호, 프로필 사진, 인스타그램 계정)를 수정할 수 있어요.
 - 프로필 사진은 주어진 미모지 중 마음에 드는 하나를 선택하면 돼요.
 - 연락처 상세 페이지의 delete 버튼으로도 연락처를 삭제할 수 있어요.
-- 해당 멤버에게 바로 전화를 걸 수도 있고, 인스타그램 페이지에 접속할 수도 있어요.
+- 해당 멤버에게 바로 전화를 걸 수도 있고, 북스타그램 페이지에 접속할 수도 있어요.
 
 
 ### Archive
@@ -110,6 +111,7 @@
 - 아카이브의 상세 정보 (제목, 저자, 설명, 사진)을 수정할 수 있어요.
 - 사진을 꾹 눌러서 아카이빙을 삭제할 수 있어요.
 - 각 아카이빙에 댓글을 달아 멤버끼리 소통할 수 있어요.
+- 아카이빙된 이미지를 줌인/아웃해서 자세하게 볼 수 있어요. (ex. 구절 자세히 보기)
 
 ### 캘린더
 
