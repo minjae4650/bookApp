@@ -82,7 +82,7 @@
       </td>
       <td align="center"><img src="https://github.com/user-attachments/assets/893cb57b-dd63-4b9c-9d2f-bbebcbab7ea2" width="200"/>
           <img src="https://github.com/user-attachments/assets/ddae401f-85fc-4590-aee9-47677ccb2aad" width="200" />
-          <img src = "https://github.com/user-attachments/assets/749d9013-10c4-452c-a59f-138254be76dc" width="200" />
+          <img src = "https://github.com/user-attachments/assets/749d9013-10c4-452c-a59f-138254be76dc" width="200" /> </td>
       </td>
     </tr>
  </table>
