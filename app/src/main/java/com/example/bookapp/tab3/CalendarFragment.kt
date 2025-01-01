@@ -66,9 +66,16 @@ class CalendarFragment : Fragment() {
             showAddScheduleDialog(selectedDate)
         }
 
+
         highlightSchedules()
 
+        highlightToday()
+
         return rootView
+    }
+
+    private fun highlightToday() {
+        calendarView.addDecorator(TodayDecorator(requireContext()))
     }
 
     private fun highlightSchedules() {
