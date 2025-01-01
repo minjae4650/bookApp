@@ -2,7 +2,7 @@
 <div align="center">
 
 
-<img src="https://github.com/user-attachments/assets/64651a03-f9b9-4e67-8814-0c996381cabd" width="1000"/>
+<img src="https://github.com/user-attachments/assets/98aa99cc-d728-4c49-8451-9db920bea710" width="1000"/>
     <h2> 독서 모임 관리를 위한 Android App Platform </h2>
     <p>
     최근 한강 작가의 노벨상 수상, text-hip, 난독증 및 ADHD 등으로 독서의 필요성에 대한 사회적 관심 증가해서 독서에 대한 수요가 늘고 있습니다.<br>
@@ -83,7 +83,7 @@
 ##### 연락처 목록
 
 - 독서 모임에 참여 중인 멤버 목록을 모아볼 수 있어요.
-- 검색창 기능으로 편리하게 멤버를 찾을 수 있어요.
+- 검색창 기능으로 편리하게 멤버를 찾을 수 있어요. (이름/연락처/인스타그램)
 - ADD CONTACT 버튼을 통해 멤버를 추가할 수 있어요.
 - 연락처 목록에서 연락처를 꾹 눌러 특정 멤버를 삭제할 수 있어요.<br>
 ##### 연락처 상세 페이지
