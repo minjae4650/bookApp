@@ -63,7 +63,7 @@
       <td align="center">연락처</td>
     </tr>
     <tr>
-      <td align="center"><img src="https://github.com/user-attachments/assets/1201225c-df47-4345-85ef-376dc87e6f19" width="500" /></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/1201225c-df47-4345-85ef-376dc87e6f19" width="200" /></td>
       <td align="center"><img src="https://github.com/TherapEase-CEOS/TherapEase-FE/assets/86418674/3880a408-9c36-4226-8792-b22165d4f933.png" /></td>
     </tr>
     <tr>
