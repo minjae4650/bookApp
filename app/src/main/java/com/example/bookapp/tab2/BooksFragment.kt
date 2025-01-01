@@ -193,8 +193,8 @@ class BooksFragment : Fragment() {
         editIcon.visibility = View.GONE
 
         // 초기 상태: TextView에 책 정보 표시, EditText는 GONE
-        bookAuthorTextView.text = "저자: ${book.author}"
-        bookReviewTextView.text = "감상평: ${book.review}"
+        bookAuthorTextView.text = "Author : ${book.author}"
+        bookReviewTextView.text = "Description : ${book.review}"
 
         // 선택된 Book 기억
         selectedBook = book
@@ -214,7 +214,7 @@ class BooksFragment : Fragment() {
         }
 
         // 제목 표시
-        bookTitleTextView.text = "제목: ${book.title}"
+        bookTitleTextView.text = "Title: ${book.title}"
         bookTitleEditText.visibility = View.GONE
 
         // 댓글 리사이클러뷰 설정
@@ -261,8 +261,8 @@ class BooksFragment : Fragment() {
                     bookPreferences.saveBooks(bookAdapter.getBooks())
 
                     // TextView에 새 값 표시
-                    bookTitleTextView.text = "제목: ${sel.title}"
-                    bookAuthorTextView.text = "저자: ${sel.author}"
+                    bookTitleTextView.text = "Title : ${sel.title}"
+                    bookAuthorTextView.text = "Author : ${sel.author}"
                     bookReviewTextView.text = sel.review
                 }
 
