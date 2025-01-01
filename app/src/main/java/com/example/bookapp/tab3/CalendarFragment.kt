@@ -93,13 +93,20 @@ class CalendarFragment : Fragment() {
 
     private fun showAddScheduleDialog(date: String) {
         val builder = AlertDialog.Builder(requireContext())
-        builder.setTitle("$date Add schedule")
+        builder.setTitle("Add schedule on $date")
+
+        // 입력 필드를 감쌀 FrameLayout 생성
+        val container = FrameLayout(requireContext())
+        container.setPadding(45, 20, 45, 16) // 왼쪽, 위, 오른쪽, 아래 패딩 설정 (dp 단위)
 
         val input = EditText(requireContext())
         input.hint = "Put schedule here."
-        builder.setView(input)
 
-        builder.setPositiveButton("추가") { _, _ ->
+        // 입력 필드를 FrameLayout에 추가
+        container.addView(input)
+        builder.setView(container)
+
+        builder.setPositiveButton("ADD") { _, _ ->
             val schedule = input.text.toString().trim()
             if (schedule.isNotEmpty()) {
                 addSchedule(date, schedule)
