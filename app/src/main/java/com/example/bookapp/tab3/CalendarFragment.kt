@@ -66,9 +66,16 @@ class CalendarFragment : Fragment() {
             showAddScheduleDialog(selectedDate)
         }
 
+
         highlightSchedules()
 
+        highlightToday()
+
         return rootView
+    }
+
+    private fun highlightToday() {
+        calendarView.addDecorator(TodayDecorator(requireContext()))
     }
 
     private fun highlightSchedules() {
@@ -175,12 +182,8 @@ class CalendarFragment : Fragment() {
     }
 
     private fun moveToMilliApp() {
-        val intent = Intent(Intent.ACTION_VIEW)
-        intent.data = Uri.parse("market://details?id=com.millies.library") // 밀리의 서재 패키지 이름
-        if (intent.resolveActivity(requireContext().packageManager) != null) {
-            startActivity(intent)
-        } else {
-            Toast.makeText(requireContext(), "Install the app <Millie's library>.", Toast.LENGTH_SHORT).show()
-        }
+        val url = "https://www.millie.co.kr"
+        val intent = Intent(Intent.ACTION_VIEW, Uri.parse(url))
+        startActivity(intent)
     }
 }

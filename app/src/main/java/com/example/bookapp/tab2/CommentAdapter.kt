@@ -11,6 +11,12 @@ class CommentAdapter(
     private val comments: MutableList<String>
 ) : RecyclerView.Adapter<CommentAdapter.CommentViewHolder>() {
 
+    private var onItemLongClick: ((Int) -> Unit)? = null
+
+    fun setOnItemLongClickListener(listener: (Int) -> Unit) {
+        onItemLongClick = listener
+    }
+
     inner class CommentViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val commentText: TextView = itemView.findViewById(R.id.commentTextView)
     }
@@ -24,6 +30,11 @@ class CommentAdapter(
     override fun onBindViewHolder(holder: CommentViewHolder, position: Int) {
         val comment = comments[position]
         holder.commentText.text = comment
+
+        holder.itemView.setOnLongClickListener {
+            onItemLongClick?.invoke(position)
+            true
+        }
     }
 
     override fun getItemCount(): Int = comments.size

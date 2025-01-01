@@ -220,6 +220,23 @@ class BooksFragment : Fragment() {
         // 댓글 리사이클러뷰 설정
         commentsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         val commentAdapter = CommentAdapter(book.comments)
+
+        commentAdapter.setOnItemLongClickListener { position ->
+            // 롱클릭 시 삭제 다이얼로그
+            androidx.appcompat.app.AlertDialog.Builder(requireContext())
+                .setTitle("Delete Comment")
+                .setMessage("Are you sure to delete the comment?")
+                .setPositiveButton("Delete") { _, _ ->
+                    book.comments.removeAt(position)
+                    commentAdapter.notifyItemRemoved(position)
+
+                    // SharedPreferences 반영
+                    bookPreferences.saveBooks(bookAdapter.getBooks())
+                    Toast.makeText(requireContext(), "Comment is deleted now.", Toast.LENGTH_SHORT).show()
+                }
+                .setNegativeButton("Cancel", null)
+                .show()
+        }
         commentsRecyclerView.adapter = commentAdapter
 
         // 댓글 추가 버튼
@@ -340,6 +357,18 @@ class BooksFragment : Fragment() {
                 } else {
                     fullScreenImage.setImage(ImageSource.resource(R.drawable.image_placeholder))
                 }
+
+                // 최소 확대 비율 설정 (화면 안에 이미지가 맞도록 제한)
+                fullScreenImage.setMinimumScaleType(SubsamplingScaleImageView.SCALE_TYPE_CENTER_INSIDE)
+
+                // 최대 확대 비율 설정
+                fullScreenImage.setMaxScale(5.0f) // 5배 확대 가능
+
+                // 이동 제한 설정 (이미지가 화면 밖으로 나가지 않도록 제한)
+                fullScreenImage.setPanLimit(SubsamplingScaleImageView.PAN_LIMIT_INSIDE)
+
+                // 다이얼로그 화면을 풀스크린으로 설정
+                fullScreenDialog.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT)
                 fullScreenDialog.show()
             }
         }
