@@ -64,15 +64,25 @@
     </tr>
     <tr>
       <td align="center"><img src="https://github.com/user-attachments/assets/1201225c-df47-4345-85ef-376dc87e6f19" width="200" /></td>
-      <td align="center"><img src="https://github.com/TherapEase-CEOS/TherapEase-FE/assets/86418674/3880a408-9c36-4226-8792-b22165d4f933.png" /></td>
+      <td align="center"> <img src="https://github.com/user-attachments/assets/8515bd7c-17ac-433d-94fe-760a28f89f77" width="200" />
+        <img src="https://github.com/user-attachments/assets/8f27c385-5715-4f42-b8ee-2c81e961e475" width="200" />
+        <img src="https://github.com/user-attachments/assets/c9997dc3-21a5-4cf8-81ee-3c30857c8cc4" width="200" />
+        <img src="https://github.com/user-attachments/assets/180a1eef-53b2-4397-b67a-037a544c612a" width="200" /></td>
+      </td>
     </tr>
     <tr>
       <td align="center">Archive</td>
       <td align="center">캘린더</td>
     </tr>
     <tr>
-      <td align="center"><img src="https://github.com/TherapEase-CEOS/TherapEase-FE/assets/86418674/b3cf47fe-edac-4ff2-936c-03a074b48055.png" /></td>
-      <td align="center"><img src="https://github.com/TherapEase-CEOS/TherapEase-FE/assets/86418674/47ee73dc-bdcd-41c1-8a5b-eb01b750bf70.png" /></td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/66f204a7-a0d1-47ac-9ae0-8bb4dd28f61b" width="200" />
+          <img src="https://github.com/user-attachments/assets/fff52803-d1ef-4b90-9dc4-5679af72f9ec" width="200" />
+          <img src="https://github.com/user-attachments/assets/142c47ac-74e1-434b-86ee-138d2421bcc0" width="200" /> </td>
+      </td>
+      <td align="center"><img src="https://github.com/user-attachments/assets/1671aca3-7211-4f17-88e9-fa70b3591c61" width="200"/>
+          <img src="https://github.com/user-attachments/assets/0efd8131-0ac2-433b-bf25-bfed25c75eb4" width="200" />
+          <img src = "https://github.com/user-attachments/assets/9a88715a-7668-4086-ad60-c6b6dd116b07" width="200" />
+      </td>
     </tr>
  </table>
 
