@@ -1,0 +1,17 @@
+[
+  {
+    "name": "Alice Kim",
+    "instagram" : "@alice_book",
+    "phone": "010-1234-5678"
+  },
+  {
+    "name": "Bob Lee",
+    "instagram" : "@bob_book",
+    "phone": "010-9876-5432"
+  },
+  {
+    "name": "Charlie Park",
+    "instagram" : "@charlie_book",
+    "phone": "010-5678-1234"
+  }
+]
