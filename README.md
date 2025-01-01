@@ -11,7 +11,7 @@
   이에 독서 모임을 더 편리하고 효율적으로 진행하도록 도우며 독후감 및 좋은 구절을 손쉽게 공유할 수 있는 <br> **소북소북(SoBook SoBook)** 서비스를 기획하게 되었습니다. <br><br>
   소북소북 ; 쌓이는 눈처럼 읽은 책과 교양도 소복소복 쌓이기를 바란다는 의미 + "So Book"
     </p>
-    <a href="https://www.notion.so/693c9bade690459c98331eadaf722d75" target="_blank">개발팀노션</a>
+    <a href="https://www.notion.so/madcamp/11f12c3b279d4f24a7fe9be538b3e94c?pvs=4" target="_blank">개발팀노션</a>
    <br />
     
 </div>
